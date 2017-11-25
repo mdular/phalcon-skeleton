@@ -1,0 +1,19 @@
+{
+    "name": "mogly/invo",
+    "type": "project",
+    "require": {
+        "ext-phalcon": "^3.2",
+        "ext-pdo_pgsql": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "phalcon/devtools": "^3.2",
+        "phalcon/ide-stubs": "^3.2"
+    },
+    "authors": [
+        {
+            "name": "mdular",
+            "email": "git@the-enemy.org"
+        }
+    ]
+}
