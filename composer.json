@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "ext-phalcon": "^3.2",
-        "ext-pdo_pgsql": "*"
+        "ext-pdo_pgsql": "*",
+        "phalcon/incubator": "^3.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",
