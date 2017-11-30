@@ -68,4 +68,5 @@ define('APP_PATH', BASE_PATH . '/app');
      */
     require APP_PATH . '/config/routes.php';
 
-    echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
+    // echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
+    echo $application->handle()->getContent();
