@@ -1,5 +1,5 @@
 <?php
-namespace Invo\Modules\Frontend;
+namespace Frontend;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -19,8 +19,8 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Invo\Modules\Frontend\Controllers' => __DIR__ . '/controllers/',
-            'Invo\Modules\Frontend\Models' => __DIR__ . '/models/',
+            'Frontend\Controllers' => __DIR__ . '/controllers/',
+            'Frontend\Models' => __DIR__ . '/models/',
         ]);
 
         $loader->register();

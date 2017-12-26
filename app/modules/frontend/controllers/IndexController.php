@@ -1,6 +1,6 @@
 <?php
 
-namespace Invo\Modules\Frontend\Controllers;
+namespace Frontend\Controllers;
 
 class IndexController extends ControllerBase
 {

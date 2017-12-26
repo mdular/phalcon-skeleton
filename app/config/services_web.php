@@ -58,6 +58,6 @@ $di->set('flash', function () {
 */
 $di->setShared('dispatcher', function() {
     $dispatcher = new Dispatcher();
-    $dispatcher->setDefaultNamespace('Invo\Modules\Frontend\Controllers');
+    $dispatcher->setDefaultNamespace('Frontend\Controllers');
     return $dispatcher;
 });

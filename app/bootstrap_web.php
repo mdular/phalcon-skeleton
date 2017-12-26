@@ -12,7 +12,7 @@ define('APP_PATH', BASE_PATH . '/app');
 /**
  * Include Autoloader
  */
-include APP_PATH . '/config/loader.php';
+require_once(APP_PATH . '/config/loader.php');
 
 /**
  * The FactoryDefault Dependency Injector automatically registers the services that
@@ -58,7 +58,7 @@ $application = new Application($di);
  * Register application modules
  */
 $application->registerModules([
-    'frontend' => ['className' => 'Invo\Modules\Frontend\Module'],
+    'frontend' => ['className' => 'Frontend\Module'],
 ]);
 
 /**

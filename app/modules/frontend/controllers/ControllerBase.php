@@ -1,5 +1,5 @@
 <?php
-namespace Invo\Modules\Frontend\Controllers;
+namespace Frontend\Controllers;
 
 use Phalcon\Mvc\Controller;
 

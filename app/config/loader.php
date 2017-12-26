@@ -8,16 +8,16 @@ $loader = new Loader();
  * Register Namespaces
  */
 $loader->registerNamespaces([
-    'Invo\Models' => APP_PATH . '/common/models/',
-    'Invo'        => APP_PATH . '/common/library/',
+    'Models'    => APP_PATH . '/common/models/',
+    'Library'   => APP_PATH . '/common/library/',
 ]);
 
 /**
  * Register module classes
  */
 $loader->registerClasses([
-    'Invo\Modules\Frontend\Module' => APP_PATH . '/modules/frontend/Module.php',
-    'Invo\Modules\Cli\Module'      => APP_PATH . '/modules/cli/Module.php'
+    'Frontend\Module' => APP_PATH . '/modules/frontend/Module.php',
+    'Cli\Module'      => APP_PATH . '/modules/cli/Module.php'
 ]);
 
 /**
