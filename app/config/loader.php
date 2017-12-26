@@ -20,4 +20,11 @@ $loader->registerClasses([
     'Invo\Modules\Cli\Module'      => APP_PATH . '/modules/cli/Module.php'
 ]);
 
+/**
+ * Register Files, composer autoloader
+ */
+$loader->registerFiles([
+    'vendor/autoload.php'
+]);
+
 $loader->register();
