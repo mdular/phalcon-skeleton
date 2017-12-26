@@ -3,6 +3,8 @@
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Application;
 
+define('ENV_PRODUCTION', 'production');
+define('APPLICATION_ENV', getenv('APPLICATION_ENV') ?: ENV_PRODUCTION);
 define('DEBUG', getenv('DEBUG') === 'true' ? true : false);
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
@@ -13,20 +15,24 @@ define('APP_PATH', BASE_PATH . '/app');
 include APP_PATH . '/config/loader.php';
 
 /**
-* Error handling
-*/
-Phalcon\Error\Handler::register();
-
-if (DEBUG === true) {
-    $debug = new Phalcon\Debug();
-    $debug->listen();
-}
-
-/**
  * The FactoryDefault Dependency Injector automatically registers the services that
  * provide a full stack framework. These default services can be overidden with custom ones.
  */
 $di = new FactoryDefault();
+
+/**
+* Error handling
+* requires autoloader (for Handler class)
+* requires $di from FactoryDefault to be present (url service)
+*/
+if (DEBUG === true) {
+    $debug = new Phalcon\Debug();
+    // the 2nd argument will turn on capturing of silent errors, such as warnings
+    $debug->listen(true, true);
+} else {
+    // TODO: this handler is not catching / logging warnings.. because it disables error_reporting
+    Phalcon\Error\Handler::register();
+}
 
 /**
  * Include general services
