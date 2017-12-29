@@ -55,10 +55,31 @@ $di->set('flash', function () {
 });
 
 /**
-* Set the default namespace for dispatcher
+* Registering the dispatcher
 */
-$di->setShared('dispatcher', function() {
+$di->setShared('dispatcher', function() use ($di) {
     $dispatcher = new Dispatcher();
-    $dispatcher->setDefaultNamespace('Frontend\Controllers');
+
+    $eventsManager = $di->getShared('eventsManager');
+    $eventsManager->attach('dispatch:beforeException', function (Phalcon\Events\Event $e, $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception) {
+
+        switch($exception->getCode()){
+            case Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+            case Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                $dispatcher->forward([
+                    'controller' => 'index',
+                    'action'    => 'error404'
+                ]);
+                return false;
+            // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_HANDLER:
+            // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_PARAMS:
+            //     $response = $dispatcher->getDi()->getShared('response');
+            //     $response->setStatusCode(400);
+            //     $response->sendHeaders();
+            //     return false;
+        }
+    });
+    $dispatcher->setEventsManager($eventsManager);
+
     return $dispatcher;
 });
