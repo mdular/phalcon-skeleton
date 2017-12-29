@@ -10,7 +10,7 @@ class IndexController extends ControllerBase
         throw new \Exception('Yeah, that failed.');
     }
 
-    public function errorAction()
+    public function error500Action()
     {
         $this->response->resetHeaders();
         $this->response->setStatusCode(500);
