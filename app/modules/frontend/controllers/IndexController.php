@@ -15,4 +15,10 @@ class IndexController extends ControllerBase
         $this->response->resetHeaders();
         $this->response->setStatusCode(500);
     }
+
+    public function error404Action()
+    {
+        $this->response->resetHeaders();
+        $this->response->setStatusCode(404);
+    }
 }

@@ -12,9 +12,10 @@ use Phalcon\Flash\Direct as Flash;
  * Registering a router
  */
 $di->setShared('router', function () {
-    $router = new Router();
-
-    $router->setDefaultModule('frontend');
+    $router = new Router(false);
+    $router->setDefaultModule(APP_MODULE);
+    $router->setDefaultNameSpace(sprintf('%s\Controllers', ucfirst(APP_MODULE)));
+    $router->notFound('Index::error404');
 
     return $router;
 });

@@ -8,6 +8,7 @@ define('APPLICATION_ENV', getenv('APPLICATION_ENV') ?: ENV_PRODUCTION);
 define('DEBUG', getenv('DEBUG') === 'true' ? true : false);
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
+define('APP_MODULE', getenv('APP_MODULE') ?: 'frontend');
 
 /**
  * Include Autoloader
