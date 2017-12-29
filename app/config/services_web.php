@@ -64,8 +64,8 @@ $di->setShared('dispatcher', function() use ($di) {
     $eventsManager->attach('dispatch:beforeException', function (Phalcon\Events\Event $e, $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception) {
 
         switch($exception->getCode()){
-            case Phalcon\Mvc\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-            case Phalcon\Mvc\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+            case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+            case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
                 $dispatcher->forward([
                     'controller' => 'index',
                     'action'    => 'error404'
