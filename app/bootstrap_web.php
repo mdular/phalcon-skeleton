@@ -66,5 +66,8 @@ $application->registerModules([
  */
 require APP_PATH . '/config/routes.php';
 
-// echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
-echo $application->handle()->getContent();
+/**
+ * Handle the request (dispatch), send response
+ */
+$response = $application->handle();
+$response->send();
