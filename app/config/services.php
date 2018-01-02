@@ -7,12 +7,7 @@ use Phalcon\Config\Adapter\Ini;
 /**
  * Shared configuration service
  */
-// $di->setShared('config', function () {
-//     return include APP_PATH . "/config/config.php";
-// });
 $di->setShared('config', function () {
-    // $config = new ConfigIni()
-    // $config = new ConfigIni()
     $config = new Ini(APP_PATH . '/config/config.ini', INI_SCANNER_NORMAL);
     return $config;
 });

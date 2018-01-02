@@ -1,5 +1,5 @@
 <?php
-namespace Invo\Modules\Cli;
+namespace Cli;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -17,7 +17,7 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Invo\Modules\Cli\Tasks' => __DIR__ . '/tasks/',
+            'Cli\Tasks' => __DIR__ . '/tasks/',
         ]);
 
         $loader->register();

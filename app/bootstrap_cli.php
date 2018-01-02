@@ -7,6 +7,11 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
 /**
+ * Include Autoloader
+ */
+include APP_PATH . '/config/loader.php';
+
+/**
  * The FactoryDefault Dependency Injector automatically registers the services that
  * provide a full stack framework. These default services can be overidden with custom ones.
  */
@@ -23,11 +28,6 @@ include APP_PATH . '/config/services.php';
 include APP_PATH . '/config/services_cli.php';
 
 /**
- * Include Autoloader
- */
-include APP_PATH . '/config/loader.php';
-
-/**
  * Get config service for use in inline setup below
  */
 $config = $di->getConfig();
@@ -41,7 +41,7 @@ $console = new ConsoleApp($di);
  * Register console modules
  */
 $console->registerModules([
-    'cli' => ['className' => 'Invo\Modules\Cli\Module']
+    'cli' => ['className' => 'Cli\Module']
 ]);
 
 /**

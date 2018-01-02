@@ -1,5 +1,5 @@
 <?php
-namespace Invo\Modules\Cli\Tasks;
+namespace Cli\Tasks;
 
 class MainTask extends \Phalcon\Cli\Task
 {

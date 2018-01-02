@@ -1,11 +1,11 @@
 <?php
-namespace Invo\Modules\Cli\Tasks;
+namespace Cli\Tasks;
 
 class VersionTask extends \Phalcon\Cli\Task
 {
     public function mainAction()
     {
-        $config = $this->getDI()->get('config');
+        $config = $this->config->application;
 
         echo $config['version'];
     }

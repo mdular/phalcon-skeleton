@@ -7,6 +7,6 @@ use Phalcon\Cli\Dispatcher;
 */
 $di->setShared('dispatcher', function() {
     $dispatcher = new Dispatcher();
-    $dispatcher->setDefaultNamespace('Invo\Modules\Cli\Tasks');
+    $dispatcher->setDefaultNamespace('Cli\Tasks');
     return $dispatcher;
 });
