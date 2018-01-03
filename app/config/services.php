@@ -9,6 +9,17 @@ use Phalcon\Config\Adapter\Ini;
  */
 $di->setShared('config', function () {
     $config = new Ini(APP_PATH . '/config/config.ini', INI_SCANNER_NORMAL);
+
+    $instanceConfigPath = sprintf('%1s/config/instance/%2s.ini', APP_PATH, APP_INSTANCE);
+    if (is_file($instanceConfigPath)) {
+        $config->merge(new Ini($instanceConfigPath, INI_SCANNER_NORMAL));
+    }
+
+    $secretsConfigPath = sprintf('%1s/config/secrets.ini', APP_PATH);
+    if (is_file($secretsConfigPath)) {
+        $config->merge(new Ini($secretsConfigPath, INI_SCANNER_NORMAL));
+    }
+
     return $config;
 });
 
