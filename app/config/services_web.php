@@ -61,7 +61,11 @@ $di->setShared('dispatcher', function() use ($di) {
     $dispatcher = new Dispatcher();
 
     $eventsManager = $di->getShared('eventsManager');
-    $eventsManager->attach('dispatch:beforeException', function (Phalcon\Events\Event $e, $dispatcher, Phalcon\Mvc\Dispatcher\Exception $exception) {
+    $eventsManager->attach('dispatch:beforeException', function (Phalcon\Events\Event $e, $dispatcher, \Throwable $exception) {
+
+        if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception === false) {
+            return;
+        }
 
         switch($exception->getCode()){
             case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
