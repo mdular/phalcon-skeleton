@@ -2,8 +2,9 @@
     "name": "mogly/invo",
     "type": "project",
     "require": {
-        "ext-phalcon": "^3.2",
+        "ext-phalcon": "^3.3",
         "ext-pdo_pgsql": "*",
+        "ext-apcu": "*",
         "phalcon/incubator": "^3.2"
     },
     "require-dev": {
