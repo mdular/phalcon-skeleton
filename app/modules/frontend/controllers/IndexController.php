@@ -5,9 +5,38 @@ namespace Frontend\Controllers;
 class IndexController extends ControllerBase
 {
 
-    public function indexAction()
+    /**
+     * show a paginated list of articles
+     */
+    public function indexAction(int $page = 1)
     {
-        // throw new \Exception('Yeah, that failed.');
+        // build a query
+        $builder = $this->modelsManager->createBuilder()
+                ->from('Models\Article')
+                ->where('state = :state:', ['state' => 'published'])
+                ->orderBy('published_at');
+
+        // create paginator for query
+        $paginator = \Phalcon\Paginator\Factory::load([
+            'builder' => $builder,
+            'limit'   => 5,
+            'page'    => (int) $this->filter->sanitize($page, 'int'),
+            'adapter' => 'queryBuilder',
+        ]);
+
+        // execute
+        $articles = $paginator->getPaginate();
+
+        // 404 empty pages
+        if ($page > $articles->total_pages) {
+            return $this->dispatcher->forward([
+                'controller' => 'index',
+                'action' => 'error404',
+            ]);
+        }
+
+        // pass paginated results to view
+        $this->view->setVar('articles', $articles);
     }
 
     /**
