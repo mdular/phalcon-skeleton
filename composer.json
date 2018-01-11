@@ -5,7 +5,8 @@
         "ext-phalcon": "^3.3",
         "ext-pdo_pgsql": "*",
         "ext-apcu": "*",
-        "phalcon/incubator": "^3.2"
+        "phalcon/incubator": "^3.2",
+        "erusev/parsedown": "^1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",

@@ -14,7 +14,7 @@ class IndexController extends ControllerBase
         $builder = $this->modelsManager->createBuilder()
                 ->from('Models\Article')
                 ->where('state = :state:', ['state' => 'published'])
-                ->orderBy('published_at');
+                ->orderBy('published_at DESC');
 
         // create paginator for query
         $paginator = \Phalcon\Paginator\Factory::load([

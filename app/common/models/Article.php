@@ -4,6 +4,8 @@ namespace Models;
 
 class Article extends \Phalcon\Mvc\Model
 {
+    const CONTENT_TYPE_HTML = 'html';
+    const CONTENT_TYPE_MARKDOWN = 'markdown';
 
     /**
      *
@@ -408,4 +410,18 @@ class Article extends \Phalcon\Mvc\Model
         return 'article';
     }
 
+    /**
+     * Returns processed content based on content_type
+     */
+    public function getProcessedContent()
+    {
+        switch($this->content_type) {
+            case self::CONTENT_TYPE_HTML:
+                return $this->content;
+            case self::CONTENT_TYPE_MARKDOWN:
+                return \Parsedown::instance()->text($this->content);
+            default:
+                throw new \Exception('Unknown content_type');
+        }
+    }
 }
