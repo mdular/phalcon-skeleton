@@ -4,18 +4,26 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Phalcon PHP Framework</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
+        <title><?= $metaTitle ?></title>
+        <meta name="description" content="<?= $metaDesc ?>">
+        <link rel="sortcut icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" href="/img/favicon/favicon-196x196.png" sizes="196x196">
+        <link rel="stylesheet" href="/css/styles.css" />
     </head>
     <body>
-        <div class="container">
+        <header>
+            <h2 id="logo">
+                <a href="/">A Great Thing</a>
+            </h2>
+            <nav>
+                <a href="/">Home</a>
+            </nav>
+        </header>
+        <main>
             <?php echo $this->getContent(); ?>
-        </div>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        </main>
+        <footer>
+            &copy; <?= date('Y') ?> Page Author
+        </footer>
     </body>
 </html>

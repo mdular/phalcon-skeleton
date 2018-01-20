@@ -1,26 +1,28 @@
 <?php if ($articles->current === 1): ?>
-<h3>Latest articles</h3>
+<h1 class="main__title">Latest articles</h1>
 <?php else: ?>
-<h3>Page <?= $articles->current ?></h3>
+<h1 class="main__title">Page <?= $articles->current ?></h1>
 <?php endif; ?>
 
 <?php foreach ($articles->items as $article): ?>
 <article>
     <h2><a href="/article/<?= $article->getUrl() ?>"><?= $article->getTitle() ?></a></h2>
-    <?= $article->getExcerpt() ?>
+    <p><?= $article->getExcerpt() ?></p>
 </article>
 <?php endforeach; ?>
 
 <?php if ($articles->total_pages > 1): ?>
+<nav class="pager">
     <?php if ($articles->current > 1): ?>
         <?php if ($articles->before === 1): ?>
-            <a href='/'>Back to page <?= $articles->before; ?></a>
+            <a class="pager__back" href='/'>Back to page <?= $articles->before; ?></a>
         <?php else: ?>
-            <a href='/page/<?= $articles->before; ?>'>Back to page <?= $articles->before; ?></a>
+            <a class="pager__back" href='/page/<?= $articles->before; ?>'>Back to page <?= $articles->before; ?></a>
         <?php endif; ?>
     <?php endif; ?>
 
     <?php if ($articles->current < $articles->total_pages): ?>
-    <a href='/page/<?= $articles->next; ?>'>More on page <?= $articles->next; ?></a>
+    <a class="pager__next" href='/page/<?= $articles->next; ?>'>More on page <?= $articles->next; ?></a>
     <?php endif; ?>
+</nav>
 <?php endif; ?>

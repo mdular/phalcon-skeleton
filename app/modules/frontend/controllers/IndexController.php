@@ -37,6 +37,13 @@ class IndexController extends ControllerBase
 
         // pass paginated results to view
         $this->view->setVar('articles', $articles);
+
+        // set page title
+        if ($page === 1) {
+            $this->view->setVar('metaTitle', 'A Great Thing - Home');
+        } else {
+            $this->view->setVar('metaTitle', sprintf('A Great Thing - Page %s', $page));
+        }
     }
 
     /**
@@ -63,17 +70,23 @@ class IndexController extends ControllerBase
 
         // pass the article to the view
         $this->view->setVar('article', $article);
+
+        // set page title + description
+        $this->view->setVar('metaTitle', sprintf('A Great Thing - %s', $article->getTitle()));
+        $this->view->setVar('metaDesc', $article->getExcerpt());
     }
 
     public function error500Action()
     {
         $this->response->resetHeaders();
         $this->response->setStatusCode(500);
+        $this->view->setVar('title', 'A Great Thing - Error');
     }
 
     public function error404Action()
     {
         $this->response->resetHeaders();
         $this->response->setStatusCode(404);
+        $this->view->setVar('title', 'A Great Thing - Not found');
     }
 }

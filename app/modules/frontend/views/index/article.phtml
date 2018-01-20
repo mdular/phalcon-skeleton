@@ -1,6 +1,5 @@
 <article>
-    <h1><?= $article->getTitle() ?></h1>
-    <div>
-        <?= $article->getProcessedContent() ?>
-    </div>
+    <h1 class="article__title"><?= $article->getTitle() ?></h1>
+    <p class="article__excerpt"><?= $article->getExcerpt()?></p>
+    <?= $article->getProcessedContent() ?>
 </article>
