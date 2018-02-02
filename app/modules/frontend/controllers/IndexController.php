@@ -4,7 +4,6 @@ namespace Frontend\Controllers;
 
 class IndexController extends ControllerBase
 {
-
     /**
      * show a paginated list of articles
      */
@@ -29,10 +28,8 @@ class IndexController extends ControllerBase
 
         // 404 empty pages
         if ($page > $articles->total_pages) {
-            return $this->dispatcher->forward([
-                'controller' => 'index',
-                'action' => 'error404',
-            ]);
+            // if content does not exist, show 404
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
         // pass paginated results to view
@@ -62,10 +59,8 @@ class IndexController extends ControllerBase
 
         // if no article was found, return 404 Not found
         if (!$article) {
-            return $this->dispatcher->forward([
-                'controller' => 'index',
-                'action' => 'error404',
-            ]);
+            // if content does not exist, show 404
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
         // pass the article to the view
