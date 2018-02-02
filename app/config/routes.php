@@ -19,19 +19,5 @@ $router->add('/article/([a-zA-Z0-9_-]+)', [
     'url' => 1,
 ]);
 
-// examples
-$router->add('/site/([a-zA-Z0-9_-]+)', [
-    'controller' => 'site',
-    'action' => 1,
-]);
 
-$router->add('/site2/([a-zA-Z0-9_-]+)', [
-    'controller' => 'site',
-    'action' => 'showContentFromDatabase',
-    'pageName' => 1,
-]);
 
-$router->add('/(test)', [
-    'controller' => 1,
-    'action' => 'index',
-]);
