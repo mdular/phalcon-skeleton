@@ -17,13 +17,15 @@
             </h2>
             <nav>
                 <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
             </nav>
         </header>
         <main>
             <?php echo $this->getContent(); ?>
         </main>
         <footer>
-            &copy; <?= date('Y') ?> Page Author
+            &copy; <?= date('Y') ?> Page Author | <a href="/imprint">Imprint</a>
         </footer>
 
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />

@@ -19,5 +19,8 @@ $router->add('/article/([a-zA-Z0-9_-]+)', [
     'url' => 1,
 ]);
 
+// match pages
+$router->add('/{page:(about|contact|imprint)}', 'Page::index');
+
 
 
