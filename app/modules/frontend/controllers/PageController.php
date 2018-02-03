@@ -6,7 +6,7 @@ class PageController extends ControllerBase
 {
     public function showAction()
     {
-        $page = $this->dispatcher->getParam('page');
+        $page = $this->dispatcher->getParam('page', 'string');
         $view = sprintf('page/%s', $page);
 
         if ($this->view->exists($view)) {
