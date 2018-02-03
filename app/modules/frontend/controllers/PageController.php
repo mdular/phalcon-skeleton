@@ -6,10 +6,12 @@ class PageController extends ControllerBase
 {
     public function showAction()
     {
-        $view = sprintf('page/%s', $this->dispatcher->getParam('page'));
+        $page = $this->dispatcher->getParam('page');
+        $view = sprintf('page/%s', $page);
 
         if ($this->view->exists($view)) {
             $this->view->pick($view);
+            $this->tag->prependTitle(sprintf('%s - ', ucfirst($page)));
             return true;
         }
 

@@ -37,9 +37,9 @@ class IndexController extends ControllerBase
 
         // set page title
         if ($page === 1) {
-            $this->view->setVar('metaTitle', 'A Great Thing - Home');
+            $this->tag->prependTitle('Home - ');
         } else {
-            $this->view->setVar('metaTitle', sprintf('A Great Thing - Page %s', $page));
+            $this->tag->prependTitle(sprintf('Page %s - ', $page));
         }
     }
 
@@ -67,7 +67,7 @@ class IndexController extends ControllerBase
         $this->view->setVar('article', $article);
 
         // set page title + description
-        $this->view->setVar('metaTitle', sprintf('A Great Thing - %s', $article->getTitle()));
+        $this->tag->prependTitle(sprintf('%s - ', $article->getTitle()));
         $this->view->setVar('metaDesc', $article->getExcerpt());
     }
 
@@ -75,13 +75,13 @@ class IndexController extends ControllerBase
     {
         $this->response->resetHeaders();
         $this->response->setStatusCode(500);
-        $this->view->setVar('title', 'A Great Thing - Error');
+        $this->tag->prependTitle('Error - ');
     }
 
     public function error404Action()
     {
         $this->response->resetHeaders();
         $this->response->setStatusCode(404);
-        $this->view->setVar('title', 'A Great Thing - Not found');
+        $this->tag->prependTitle('Not found - ');
     }
 }
