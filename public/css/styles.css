@@ -9,6 +9,12 @@ body {
     padding: 0;
 }
 
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 
 /* typography */
 
@@ -132,7 +138,6 @@ footer {
 
 @media screen and (min-width:610px) {
     header {
-        position: relative;
         top: auto;
         height: auto;
         width: 200px;
@@ -161,11 +166,9 @@ footer {
     }
 
     footer {
-        position: relative;
         height: auto;
         padding-top: 0;
         background: inherit;
         z-index: auto;
-        clear: both;
     }
 }
