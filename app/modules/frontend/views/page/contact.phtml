@@ -3,10 +3,23 @@
 <p>
     Contact info.
 </p>
+
+<?php if (count($form->getMessages())): ?>
+<p class="form__errorheader">
+    Your message could not be sent. Please resolve the errors below and try again.
+</p>
+<?php endif; ?>
+
 <form method="post">
 <?php foreach ($form as $element): ?>
-    <div class="form__element">
+    <div class="form__element<?= $element->hasMessages() ? ' form__error' : ''?> clearfix">
         <?php echo $element->render(); ?>
+
+        <?php if ($element->hasMessages()): ?>
+            <?php foreach ($element->getMessages() as $message): ?>
+                <div class="form__element__message"><?= $message ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 <?php endforeach; ?>
 </form>

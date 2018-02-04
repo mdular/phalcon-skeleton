@@ -21,8 +21,23 @@ class PageController extends ControllerBase
 
     public function contactAction()
     {
+        if ($this->dispatcher->hasParam('success')) {
+            $this->view->pick('page/contact-success');
+            return;
+        }
+
         $form = new \Frontend\Form\ContactForm();
         $this->view->setVar('form', $form);
 
+        if ($this->request->isPost()) {
+            if ($form->isValid($this->request->getPost())) {
+
+                // TODO: implement sending of email
+
+                // by redirecting we get the browser to clear the POST data
+                // and can change to a success view
+                return $this->response->redirect('contact/success')->send();
+            }
+        }
     }
 }
