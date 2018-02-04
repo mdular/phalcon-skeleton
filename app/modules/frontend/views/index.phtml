@@ -22,6 +22,7 @@
             </nav>
         </header>
         <main class="clearfix">
+            <?php $this->flashSession->output(); ?>
             <?php echo $this->getContent(); ?>
         </main>
         <footer>
