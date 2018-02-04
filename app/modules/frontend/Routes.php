@@ -9,6 +9,8 @@ class Routes extends Group
     const INDEX_INDEX = 'frontend-index-home';
     const INDEX_PAGE = 'frontend-index-page';
     const INDEX_ARTICLE = 'frontend-index-article';
+    const PAGE_SHOW = 'frontend-page-show';
+    const PAGE_CONTACT = 'frontend-page-contact';
 
     protected $hostname;
 
@@ -37,5 +39,11 @@ class Routes extends Group
 
         // match an article
         $this->add('/article/{url:([a-zA-Z0-9_-]+)}', 'Index::article')->setName(self::INDEX_ARTICLE);
+
+        // match pages
+        $this->add('/{page:(about|imprint)}', 'Page::show')->setName(self::PAGE_SHOW);
+
+        // match contact page
+        $this->add('/contact{success:(/success)?}', 'Page::contact')->setName(self::PAGE_CONTACT);
     }
 }
