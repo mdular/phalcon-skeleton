@@ -63,10 +63,6 @@ $application->registerModules([
     'frontend' => ['className' => 'Frontend\Module'],
 ]);
 
-/**
- * Include routes
- */
-require APP_PATH . '/config/routes.php';
 
 /**
  * Handle the request (dispatch), send response

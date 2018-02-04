@@ -10,15 +10,14 @@ $loader = new Loader();
 $loader->registerNamespaces([
     'Models'    => APP_PATH . '/common/models/',
     'Library'   => APP_PATH . '/common/library/',
+    'Frontend' => APP_PATH . '/modules/frontend/',
+    'Cli' => APP_PATH . '/modules/cli/',
 ]);
 
 /**
  * Register module classes
  */
-$loader->registerClasses([
-    'Frontend\Module' => APP_PATH . '/modules/frontend/Module.php',
-    'Cli\Module'      => APP_PATH . '/modules/cli/Module.php'
-]);
+// $loader->registerClasses([]); <- not needed for now, can be removed
 
 /**
  * Register Files, composer autoloader

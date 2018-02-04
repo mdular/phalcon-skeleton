@@ -17,6 +17,9 @@ $di->setShared('router', function () {
     $router->setDefaultNameSpace(sprintf('%s\Controllers', ucfirst(APP_MODULE)));
     $router->notFound('Index::error404');
 
+    $config = $this->getConfig();
+    $router->mount(new Frontend\Routes($config->modules->frontend->hostname));
+
     return $router;
 });
 
