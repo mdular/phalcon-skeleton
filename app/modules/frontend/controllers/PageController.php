@@ -32,10 +32,25 @@ class PageController extends ControllerBase
         if ($this->request->isPost()) {
             if ($form->isValid($this->request->getPost())) {
 
-                // TODO: implement sending of email
+                // get message config
+                $config = $this->config->message->contact;
+
+                // create message body from form input
+                $body = sprintf(
+                    (string) $config->bodyTemplate,
+                    $this->request->getPost('email', 'email'),
+                    $this->request->getPost('message', 'string'));
+
+                $message = $this->mailer->createMessage()
+                    ->to($config->recipient, $config->name)
+                    ->subject($config->subject)
+                    ->content($body, \Phalcon\Mailer\Message::CONTENT_TYPE_PLAIN);
+
+                // send message
+                $message->send();
 
                 // by redirecting we get the browser to clear the POST data
-                // and can change to a success view
+                // we add the success param to change to a success view
                 return $this->response->redirect('contact/success')->send();
             }
         }
