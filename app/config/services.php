@@ -49,3 +49,10 @@ $di->setShared('db', function () {
 $di->setShared('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
+
+$di->setShared('logger', function () {
+    $config = $this->getConfig()->logger;
+    $class = '\Phalcon\Logger\Adapter\\' . $config->adapter;
+
+    return new $class($config->path);
+});
