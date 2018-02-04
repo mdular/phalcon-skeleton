@@ -71,3 +71,8 @@ $di->setShared('logger', function () {
 
     return new $class($config->path);
 });
+
+$di->setShared('mailer', function () {
+    $config = $this->getConfig()->mailer->toArray();
+    return new \Phalcon\Mailer\Manager($config);
+});
