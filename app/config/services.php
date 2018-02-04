@@ -40,6 +40,21 @@ $di->setShared('db', function () {
 
     $connection = new $class($params);
 
+    if ($config->database->loggingEnabled === true) {
+        $eventsManager = new \Phalcon\Events\Manager();
+        $logger = new \Phalcon\Logger\Adapter\File($config->database->logPath);
+        $eventsManager->attach(
+            "db:beforeQuery",
+            function (\Phalcon\Events\Event $event, $connection) use ($logger) {
+                $sql = $connection->getSQLStatement();
+
+                $logger->log(\Phalcon\Logger::INFO, $sql);
+            }
+        );
+        // Assign the eventsManager to the db adapter instance
+        $connection->setEventsManager($eventsManager);
+    }
+
     return $connection;
 });
 
