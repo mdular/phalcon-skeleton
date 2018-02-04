@@ -20,7 +20,10 @@ $router->add('/article/([a-zA-Z0-9_-]+)', [
 ]);
 
 // match pages
-$router->add('/{page:(about|contact|imprint)}', 'Page::show');
+$router->add('/{page:(about|imprint)}', 'Page::show');
+
+// match contact page
+$router->add('/contact{success:(/success)?}', 'Page::contact');
 
 
 

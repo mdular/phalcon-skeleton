@@ -3,3 +3,10 @@
 <p>
     Contact info.
 </p>
+<form method="post">
+<?php foreach ($form as $element): ?>
+    <div class="form__element">
+        <?php echo $element->render(); ?>
+    </div>
+<?php endforeach; ?>
+</form>

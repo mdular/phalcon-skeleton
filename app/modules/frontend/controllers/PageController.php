@@ -18,4 +18,11 @@ class PageController extends ControllerBase
         // if content does not exist, show 404
         throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
     }
+
+    public function contactAction()
+    {
+        $form = new \Frontend\Form\ContactForm();
+        $this->view->setVar('form', $form);
+
+    }
 }
