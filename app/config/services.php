@@ -2,7 +2,6 @@
 
 use Phalcon\Loader;
 use Phalcon\Mvc\Model\MetaData\Apcu as MetaDataAdapter;
-// use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Config\Adapter\Ini;
 
 /**
