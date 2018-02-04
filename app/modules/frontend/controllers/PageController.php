@@ -26,7 +26,7 @@ class PageController extends ControllerBase
             return;
         }
 
-        $form = new \Frontend\Form\ContactForm();
+        $form = new \Frontend\Forms\ContactForm();
         $this->view->setVar('form', $form);
 
         if ($this->request->isPost()) {
