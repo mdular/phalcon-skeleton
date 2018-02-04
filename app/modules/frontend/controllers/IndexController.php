@@ -7,8 +7,10 @@ class IndexController extends ControllerBase
     /**
      * show a paginated list of articles
      */
-    public function indexAction(int $page = 1)
+    public function indexAction()
     {
+        $page = (int) $this->dispatcher->getParam('page', 'int') ?: 1;
+
         // build a query
         $builder = $this->modelsManager->createBuilder()
                 ->from('Models\Article')
@@ -19,7 +21,7 @@ class IndexController extends ControllerBase
         $paginator = \Phalcon\Paginator\Factory::load([
             'builder' => $builder,
             'limit'   => 5,
-            'page'    => (int) $this->filter->sanitize($page, 'int'),
+            'page'    => $page,
             'adapter' => 'queryBuilder',
         ]);
 
@@ -46,13 +48,13 @@ class IndexController extends ControllerBase
     /**
      * show an article by its URL
      */
-    public function articleAction(string $url)
+    public function articleAction()
     {
         // find one article where the url matches the input and state = published
         $article = \Models\Article::findFirst([
             'conditions' => 'url = ?1 AND state = ?2',
             'bind' => [
-                1 => $this->filter->sanitize($url, 'string'),
+                1 => $this->dispatcher->getParam('url', 'string'),
                 2 => 'published',
             ],
         ]);
