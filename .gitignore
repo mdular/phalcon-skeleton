@@ -1,3 +1,8 @@
 vendor/
 app/config/secrets.ini
 buildlog/
+log/
+public/css/webtools.css
+public/css/codemirror.css
+public/js/webtools.js
+public/js/codemirror.js
