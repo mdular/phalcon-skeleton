@@ -9,7 +9,7 @@ $loader = new Loader();
  */
 $loader->registerNamespaces([
     'Models'    => sprintf('%s/common/models/', APP_PATH),
-    'Library'   => sprintf('%s/common/library/', APP_PATH),
+    'Component' => sprintf('%s/common/Component/', APP_PATH),
     'Frontend'  => sprintf('%s/modules/frontend/', APP_PATH),
     'Cli'       => sprintf('%s/modules/cli/', APP_PATH),
 ]);

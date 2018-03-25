@@ -12,6 +12,10 @@
 
 <form method="post">
 <?php foreach ($form as $element): ?>
+    <?php if ($element instanceof Phalcon\Forms\Element\Hidden): ?>
+        <?php echo $element->render(); continue; ?>
+    <?php endif; ?>
+
     <div class="form__element<?= $element->hasMessages() ? ' form__error' : ''?> clearfix">
         <?php echo $element->render(); ?>
 

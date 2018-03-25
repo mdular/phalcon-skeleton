@@ -2,23 +2,17 @@
 
 namespace Frontend\Form;
 
-use Phalcon\Forms\Form;
+use \Component\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Submit;
 use Phalcon\Forms\Element\TextArea;
-use Phalcon\Forms\Element\Hidden;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 
-
 class ContactForm extends Form
 {
-    public function initialize ()
+    protected function addFields ():void
     {
-        $csrf = new Hidden($this->getCsrfTokenKey(), [
-            'value' => $this->getCsrfToken(),
-        ]);
-
         $email = new Text('email', [
             'placeholder' => 'Email (optional)',
         ]);
@@ -38,25 +32,8 @@ class ContactForm extends Form
             'value' => 'Submit',
         ]);
 
-        $this->add($csrf);
         $this->add($email);
         $this->add($message);
         $this->add($submit);
-    }
-
-    public function getCsrfTokenKey ()
-    {
-        $tokenKeyId = '$PHALCON/CSRF/KEY$';
-
-        if ($this->session->has($tokenKeyId)) {
-            return $this->session->get($tokenKeyId);
-        }
-
-        return $this->security->getTokenKey();
-    }
-
-    public function getCsrfToken ()
-    {
-        return $this->security->getSessionToken() ? : $this->security->getToken();
     }
 }
