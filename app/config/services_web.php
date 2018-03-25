@@ -14,7 +14,7 @@ use Phalcon\Flash\Direct as Flash;
 $di->setShared('router', function () {
     $router = new Router(false);
     $router->setDefaultModule(APP_MODULE);
-    $router->setDefaultNameSpace(sprintf('%s\Controllers', ucfirst(APP_MODULE)));
+    $router->setDefaultNameSpace(sprintf('%s\Controller', ucfirst(APP_MODULE)));
     $router->notFound('Index::error404');
 
     $config = $this->getConfig();
@@ -73,11 +73,10 @@ $di->setShared('dispatcher', function() use ($di) {
         switch($exception->getCode()){
             case Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
             case Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                $dispatcher->forward([
+                return $dispatcher->forward([
                     'controller' => 'index',
                     'action'    => 'error404'
                 ]);
-                return false;
             // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_HANDLER:
             // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_PARAMS:
             //     $response = $dispatcher->getDi()->getShared('response');

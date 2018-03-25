@@ -8,16 +8,16 @@ $loader = new Loader();
  * Register Namespaces
  */
 $loader->registerNamespaces([
-    'Models'    => APP_PATH . '/common/models/',
-    'Library'   => APP_PATH . '/common/library/',
-    'Frontend' => APP_PATH . '/modules/frontend/',
-    'Cli' => APP_PATH . '/modules/cli/',
+    'Models'    => sprintf('%s/common/models/', APP_PATH),
+    'Library'   => sprintf('%s/common/library/', APP_PATH),
+    'Frontend'  => sprintf('%s/modules/frontend/', APP_PATH),
+    'Cli'       => sprintf('%s/modules/cli/', APP_PATH),
 ]);
 
 /**
  * Register module classes
  */
-// $loader->registerClasses([]); <- not needed for now, can be removed
+// $loader->registerClasses([]); <- not needed currently
 
 /**
  * Register Files, composer autoloader

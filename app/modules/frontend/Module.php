@@ -18,7 +18,9 @@ class Module implements ModuleDefinitionInterface
     {
         $loader = new Loader();
 
-        // $loader->registerNamespaces([]); <- not needed for now
+        $loader->registerNamespaces([
+            'Frontend\Controller' => sprintf('%s/modules/frontend/controllers/', APP_PATH),
+        ]);
 
         $loader->register();
     }
