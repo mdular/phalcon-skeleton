@@ -8,7 +8,7 @@ $loader = new Loader();
  * Register Namespaces
  */
 $loader->registerNamespaces([
-    'Models'    => sprintf('%s/common/models/', APP_PATH),
+    'Model'     => sprintf('%s/common/Model/', APP_PATH),
     'Component' => sprintf('%s/common/Component/', APP_PATH),
     'Frontend'  => sprintf('%s/modules/frontend/', APP_PATH),
     'Cli'       => sprintf('%s/modules/cli/', APP_PATH),
