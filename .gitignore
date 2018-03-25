@@ -7,3 +7,4 @@ public/css/codemirror.css
 public/js/webtools.js
 public/js/codemirror.js
 .phalcon/
+composer.phar

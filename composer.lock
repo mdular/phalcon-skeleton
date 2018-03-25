@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "4f21cb4d664aadf97082a3424a200703",
+=======
+    "content-hash": "1c1dbac1769738c0efffe50de5f85d3e",
+>>>>>>> develop
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -236,6 +240,7 @@
         },
         {
             "name": "twig/twig",
+<<<<<<< HEAD
             "version": "v2.4.6",
             "source": {
                 "type": "git",
@@ -246,6 +251,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/twigphp/Twig/zipball/d2117ec118c1ff3d28ccddca8212d82787a4809f",
                 "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f",
+=======
+            "version": "v2.4.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "69aacd44dbbaa3199d5afb68605c996d577896fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/69aacd44dbbaa3199d5afb68605c996d577896fc",
+                "reference": "69aacd44dbbaa3199d5afb68605c996d577896fc",
+>>>>>>> develop
                 "shasum": ""
             },
             "require": {
@@ -254,8 +271,13 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
+<<<<<<< HEAD
                 "symfony/debug": "~2.7",
                 "symfony/phpunit-bridge": "~3.3@dev"
+=======
+                "symfony/debug": "^2.7",
+                "symfony/phpunit-bridge": "^3.3"
+>>>>>>> develop
             },
             "type": "library",
             "extra": {
@@ -298,7 +320,11 @@
             "keywords": [
                 "templating"
             ],
+<<<<<<< HEAD
             "time": "2018-03-03T16:23:01+00:00"
+=======
+            "time": "2018-03-20T04:31:17+00:00"
+>>>>>>> develop
         }
     ],
     "packages-dev": [
@@ -574,20 +600,20 @@
         },
         {
             "name": "phalcon/devtools",
-            "version": "v3.2.12",
+            "version": "3.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "f7d474ae5eb953729f2b9a3ebd58e799debc09c3"
+                "reference": "ab8ff3ad709691549fa588e46d54584edfbbaab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/f7d474ae5eb953729f2b9a3ebd58e799debc09c3",
-                "reference": "f7d474ae5eb953729f2b9a3ebd58e799debc09c3",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/ab8ff3ad709691549fa588e46d54584edfbbaab1",
+                "reference": "ab8ff3ad709691549fa588e46d54584edfbbaab1",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": "~3.1",
+                "ext-phalcon": "~3.3",
                 "php": ">=5.5",
                 "psy/psysh": "@stable"
             },
@@ -632,20 +658,20 @@
                 "phar",
                 "webtools"
             ],
-            "time": "2018-01-05T11:24:28+00:00"
+            "time": "2018-03-12T13:10:21+00:00"
         },
         {
             "name": "phalcon/ide-stubs",
-            "version": "v3.3.0",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/ide-stubs.git",
-                "reference": "e22d3f2c8b1e60a206a88d5dda07ec3e34dece3b"
+                "reference": "fed301b552dd12d9428d0cc9dbae45d58ce42e56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/ide-stubs/zipball/e22d3f2c8b1e60a206a88d5dda07ec3e34dece3b",
-                "reference": "e22d3f2c8b1e60a206a88d5dda07ec3e34dece3b",
+                "url": "https://api.github.com/repos/phalcon/ide-stubs/zipball/fed301b552dd12d9428d0cc9dbae45d58ce42e56",
+                "reference": "fed301b552dd12d9428d0cc9dbae45d58ce42e56",
                 "shasum": ""
             },
             "require": {
@@ -680,7 +706,7 @@
                 "stub",
                 "stubs"
             ],
-            "time": "2017-12-25T15:12:50+00:00"
+            "time": "2018-02-26T23:55:17+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2307,7 +2333,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phalcon/devtools": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
