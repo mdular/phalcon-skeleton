@@ -1,6 +1,6 @@
 <?php
 
-namespace Frontend\Controllers;
+namespace Frontend\Controller;
 
 class PageController extends ControllerBase
 {
@@ -26,7 +26,7 @@ class PageController extends ControllerBase
             return;
         }
 
-        $form = new \Frontend\Forms\ContactForm();
+        $form = new \Frontend\Form\ContactForm();
         $this->view->setVar('form', $form);
 
         if ($this->request->isPost()) {
