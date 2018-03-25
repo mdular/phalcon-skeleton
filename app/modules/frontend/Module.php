@@ -16,13 +16,10 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerAutoloaders(DiInterface $di = null)
     {
-        $loader = new Loader();
-
-        $loader->registerNamespaces([
-            'Frontend\Controller' => sprintf('%s/modules/frontend/controllers/', APP_PATH),
-        ]);
-
-        $loader->register();
+        // no namespaces to register at this point...
+        // $loader = new Loader();
+        // $loader->registerNamespaces([]);
+        // $loader->register();
     }
 
     /**

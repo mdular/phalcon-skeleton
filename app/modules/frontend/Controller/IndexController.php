@@ -4,7 +4,6 @@ namespace Frontend\Controller;
 
 class IndexController extends ControllerBase
 {
-
     public function indexAction()
     {
         // throw new \Exception('Yeah, that failed.');
