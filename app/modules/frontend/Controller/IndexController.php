@@ -13,7 +13,7 @@ class IndexController extends ControllerBase
 
         // build a query
         $builder = $this->modelsManager->createBuilder()
-                ->from('Models\Article')
+                ->from('Model\Article')
                 ->where('state = :state:', ['state' => 'published'])
                 ->orderBy('published_at DESC');
 
@@ -51,7 +51,7 @@ class IndexController extends ControllerBase
     public function articleAction()
     {
         // find one article where the url matches the input and state = published
-        $article = \Models\Article::findFirst([
+        $article = \Model\Article::findFirst([
             'conditions' => 'url = ?1 AND state = ?2',
             'bind' => [
                 1 => $this->dispatcher->getParam('url', 'string'),
