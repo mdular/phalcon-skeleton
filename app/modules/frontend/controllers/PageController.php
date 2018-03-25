@@ -21,6 +21,7 @@ class PageController extends ControllerBase
 
     public function contactAction()
     {
+        // show success view if applicable
         if ($this->dispatcher->hasParam('success')) {
             $this->view->pick('page/contact-success');
             return;
@@ -48,6 +49,9 @@ class PageController extends ControllerBase
 
                 // send message
                 $message->send();
+
+                // write to log
+                $this->logger->info(sprintf('Contact mail sent: %s', $body));
 
                 // by redirecting we get the browser to clear the POST data
                 // we add the success param to change to a success view
