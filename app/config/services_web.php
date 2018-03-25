@@ -14,7 +14,7 @@ use Phalcon\Flash\Direct as Flash;
 $di->setShared('router', function () {
     $router = new Router(false);
     $router->setDefaultModule(APP_MODULE);
-    $router->setDefaultNameSpace(sprintf('%s\Controllers', ucfirst(APP_MODULE)));
+    $router->setDefaultNameSpace(sprintf('%s\Controller', ucfirst(APP_MODULE)));
     $router->notFound('Index::error404');
 
     $config = $this->getConfig();

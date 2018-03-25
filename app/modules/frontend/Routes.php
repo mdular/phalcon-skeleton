@@ -20,7 +20,7 @@ class Routes extends Group
     {
         $this->setPaths([
             'module' => 'frontend',
-            'namespace' => 'Frontend\Controllers',
+            'namespace' => 'Frontend\Controller',
         ]);
 
         $this->setHostName($this->hostname);

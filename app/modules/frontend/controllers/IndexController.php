@@ -1,6 +1,6 @@
 <?php
 
-namespace Frontend\Controllers;
+namespace Frontend\Controller;
 
 class IndexController extends ControllerBase
 {
