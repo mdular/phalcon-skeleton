@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "4f21cb4d664aadf97082a3424a200703",
-=======
-    "content-hash": "1c1dbac1769738c0efffe50de5f85d3e",
->>>>>>> develop
+    "content-hash": "8f3910b22a4bfd4ac329da6abcaa8902",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -240,18 +236,6 @@
         },
         {
             "name": "twig/twig",
-<<<<<<< HEAD
-            "version": "v2.4.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d2117ec118c1ff3d28ccddca8212d82787a4809f",
-                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f",
-=======
             "version": "v2.4.7",
             "source": {
                 "type": "git",
@@ -262,7 +246,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/twigphp/Twig/zipball/69aacd44dbbaa3199d5afb68605c996d577896fc",
                 "reference": "69aacd44dbbaa3199d5afb68605c996d577896fc",
->>>>>>> develop
                 "shasum": ""
             },
             "require": {
@@ -271,13 +254,8 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-<<<<<<< HEAD
-                "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.3@dev"
-=======
                 "symfony/debug": "^2.7",
                 "symfony/phpunit-bridge": "^3.3"
->>>>>>> develop
             },
             "type": "library",
             "extra": {
@@ -320,11 +298,7 @@
             "keywords": [
                 "templating"
             ],
-<<<<<<< HEAD
-            "time": "2018-03-03T16:23:01+00:00"
-=======
             "time": "2018-03-20T04:31:17+00:00"
->>>>>>> develop
         }
     ],
     "packages-dev": [
