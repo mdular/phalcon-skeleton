@@ -28,6 +28,8 @@ $di = new FactoryDefault();
 * requires $di from FactoryDefault to be present (url service)
 */
 if (DEBUG === true) {
+    ini_set('display_errors', 1);
+    error_reporting(-1);
     $debug = new Phalcon\Debug();
     // the 2nd argument will turn on capturing of silent errors, such as warnings
     $debug->listen(true, true);
