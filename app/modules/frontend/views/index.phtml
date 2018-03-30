@@ -16,9 +16,9 @@
                 <a href="/">A Great Thing</a>
             </h2>
             <nav>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
+            <?php foreach($nav as $node): ?>
+                <a href="<?= $node['url'] ?>" class="<?= $node['matched'] ? 'nav__node_active' : '' ?>"><?= $node['label'] ?></a>
+            <?php endforeach; ?>
             </nav>
         </header>
         <main class="clearfix">

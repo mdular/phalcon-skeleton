@@ -73,6 +73,15 @@ header {
     transform: rotate(-5deg);
 }
 
+nav > a {
+    text-decoration: none;
+    margin: .5em 0;
+}
+
+.nav__node_active {
+    font-weight: bold;
+}
+
 
 /* main content */
 
