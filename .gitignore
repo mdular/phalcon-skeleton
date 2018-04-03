@@ -6,5 +6,6 @@ public/css/webtools.css
 public/css/codemirror.css
 public/js/webtools.js
 public/js/codemirror.js
+public/webtools*.php
 .phalcon/
 composer.phar
