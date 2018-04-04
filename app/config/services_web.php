@@ -19,6 +19,7 @@ $di->setShared('router', function () {
 
     $config = $this->getConfig();
     $router->mount(new Frontend\Routes($config->modules->frontend->hostname));
+    $router->mount(new Admin\Routes($config->modules->admin->hostname));
 
     return $router;
 });

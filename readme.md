@@ -22,3 +22,11 @@ composer
     DEBUG=true php vendor/bin/phalcon.php serve --basepath=.htrouter.php
 
 Now you can access the project via [http://localhost:8000/](http://localhost:8000/)
+
+
+## Running the development server for the admin module:
+
+    DEBUG=true APP_MODULE=admin php vendor/bin/phalcon.php serve --basepath=.htrouter.php --port=9000
+
+The admin modules can now be accessed via:
+[http://localhost:9000/](http://localhost:9000/)

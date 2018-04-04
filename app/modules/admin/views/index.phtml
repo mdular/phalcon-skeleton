@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= $this->tag->getTitle(); ?>
+        <meta name="description" content="<?= $metaDesc ?>">
+        <link rel="sortcut icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="icon" type="image/png" href="/img/favicon/favicon-196x196.png" sizes="196x196">
+        <link rel="stylesheet" href="/css/styles.css" />
+    </head>
+    <body>
+        <header>
+            <h2 id="logo">
+                <a href="/">A Great Admin</a>
+            </h2>
+            <nav>
+            <?php foreach($nav as $node): ?>
+                <a href="<?= $node['url'] ?>" class="<?= $node['matched'] ? 'nav__node_active' : '' ?>"><?= $node['label'] ?></a>
+            <?php endforeach; ?>
+            </nav>
+        </header>
+        <main class="clearfix">
+            <?php $this->flashSession->output(); ?>
+            <?php echo $this->getContent(); ?>
+        </main>
+        <footer>
+            &copy; <?= date('Y') ?> Page Author | <a href="/imprint">Imprint</a>
+        </footer>
+
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+        <script defer src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+        <script>
+        window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+          "palette": {
+            "popup": {
+              "background": "#252e39"
+            },
+            "button": {
+              "background": "transparent",
+              "text": "#14a7d0",
+              "border": "#14a7d0"
+            }
+          },
+          "showLink": false,
+          "content": {
+            "message": "This website uses cookies."
+          }
+        })});
+        </script>
+    </body>
+</html>

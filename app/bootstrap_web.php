@@ -63,6 +63,7 @@ $application = new Application($di);
  */
 $application->registerModules([
     'frontend' => ['className' => 'Frontend\Module'],
+    'admin' => ['className' => 'Admin\Module'],
 ]);
 
 
