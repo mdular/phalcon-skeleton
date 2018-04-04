@@ -30,7 +30,7 @@ $di->setShared('url', function () {
     $config = $this->getConfig();
 
     $url = new UrlResolver();
-    $url->setBaseUri($config->application->baseUri);
+    $url->setBaseUri(sprintf('%s/', $config->application->baseUri));
 
     return $url;
 });
