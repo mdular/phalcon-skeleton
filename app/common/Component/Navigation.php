@@ -25,13 +25,19 @@ class Navigation extends \Phalcon\Mvc\User\Component
 
     public function isMatch(string $routeName, array $aliases = []):bool
     {
-        $matchedRoute = $this->router->getMatchedRoute()->getName();
+        $matchedRoute = $this->router->getMatchedRoute();
 
-        if ($matchedRoute === $routeName) {
+        if (!$matchedRoute) {
+            return false;
+        }
+
+        $matchedName = $matchedRoute->getName();
+
+        if ($matchedName === $routeName) {
             return true;
         }
 
-        if (\in_array($matchedRoute, $aliases)) {
+        if (\in_array($matchedName, $aliases)) {
             return true;
         }
 
