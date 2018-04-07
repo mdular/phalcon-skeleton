@@ -40,9 +40,9 @@ $di->setShared('db', function () {
 
     $connection = new $class($params);
 
-    if ($config->database->loggingEnabled === true) {
+    if ($config->logger->db->loggingEnabled === true) {
         $eventsManager = new \Phalcon\Events\Manager();
-        $logger = new \Phalcon\Logger\Adapter\File($config->database->logPath);
+        $logger = new \Phalcon\Logger\Adapter\File($config->logger->db->logPath);
         $eventsManager->attach(
             "db:beforeQuery",
             function (\Phalcon\Events\Event $event, $connection) use ($logger) {
