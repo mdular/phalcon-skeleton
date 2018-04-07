@@ -9,3 +9,4 @@ public/js/codemirror.js
 public/webtools*.php
 .phalcon/
 composer.phar
+.idea/
