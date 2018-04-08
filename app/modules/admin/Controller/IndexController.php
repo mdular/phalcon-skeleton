@@ -8,6 +8,21 @@ class IndexController extends ControllerBase
     {
     }
 
+    public function loginAction()
+    {
+        $form = new \Admin\Form\LoginForm();
+        $this->view->setVar('form', $form);
+
+        if ($this->request->isPost()) {
+            if ($form->isValid($this->request->getPost())) {
+                // perform login attempt
+            }
+
+            // never send the password back, regardless of validity
+            $form->clear(['password']);
+        }
+    }
+
     public function error500Action()
     {
         $this->response->resetHeaders();

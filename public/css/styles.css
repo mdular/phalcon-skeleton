@@ -153,7 +153,8 @@ footer {
     display: block;
 }
 
-.form__element > input[type=text] {
+.form__element > input[type=text],
+.form__element > input[type=password] {
     width: 100%;
     padding: 5px;
     border: 1px #999 solid;
@@ -171,7 +172,8 @@ footer {
     transition: border-color .3s;
 }
 
-.form__element > input[type=text]:focus,
+.form__element > input[type=text],
+.form__element > input[type=password],
 .form__element > textarea:focus {
     border-color: #333;
 }
@@ -201,6 +203,7 @@ footer {
 }
 
 .form__error > input[type=text],
+.form__error > input[type=password],
 .form__error > textarea {
     border:2px solid red;
     padding: 4px;

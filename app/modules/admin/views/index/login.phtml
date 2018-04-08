@@ -1,0 +1,25 @@
+<h1>Login</h1>
+
+<?php if (count($form->getMessages())): ?>
+<p class="form__errorheader">
+    Login failed. Please resolve the errors below and try again.
+</p>
+<?php endif; ?>
+
+<form method="post">
+<?php foreach ($form as $element): ?>
+    <?php if ($element instanceof Phalcon\Forms\Element\Hidden): ?>
+        <?php echo $element->render(); continue; ?>
+    <?php endif; ?>
+
+    <div class="form__element<?= $element->hasMessages() ? ' form__error' : ''?> clearfix">
+        <?php echo $element->render(); ?>
+
+        <?php if ($element->hasMessages()): ?>
+            <?php foreach ($element->getMessages() as $message): ?>
+                <div class="form__element__message"><?= $message ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+<?php endforeach; ?>
+</form>
