@@ -8,6 +8,7 @@ class Routes extends Group
 {
     const INDEX_INDEX = 'admin-index-index';
     const INDEX_LOGIN = 'admin-index-login';
+    const INDEX_LOGOUT = 'admin-index-logout';
 
     protected $hostname;
 
@@ -33,5 +34,8 @@ class Routes extends Group
 
         // match login action
         $this->add('/login', 'Index::login')->setName(self::INDEX_LOGIN);
+
+        // match logout action
+        $this->add('/logout', 'Index::logout')->setName(self::INDEX_LOGOUT);
     }
 }

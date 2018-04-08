@@ -23,6 +23,13 @@ class IndexController extends ControllerBase
         }
     }
 
+    public function logoutAction()
+    {
+        $this->session->set('auth', null);
+        $this->session->destroy();
+        return $this->response->redirect(['for' => \Admin\Routes::INDEX_LOGIN])->send();
+    }
+
     public function error500Action()
     {
         $this->response->resetHeaders();
