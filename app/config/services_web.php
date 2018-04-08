@@ -86,7 +86,9 @@ $di->setShared('dispatcher', function() use ($di) {
             //     return false;
         }
     });
-    $dispatcher->setEventsManager($eventsManager);
 
+    $eventsManager->attach('dispatch:beforeExecuteRoute', new Plugin\Security());
+
+    $dispatcher->setEventsManager($eventsManager);
     return $dispatcher;
 });
