@@ -16,6 +16,35 @@ class IndexController extends ControllerBase
         if ($this->request->isPost()) {
             if ($form->isValid($this->request->getPost())) {
                 // perform login attempt
+                $user = \Admin\Model\AdminUser::findFirst([
+                    'conditions' => 'email = ?1',
+                    'bind' => [
+                        1 => $this->request->getPost('email', 'email'),
+                    ],
+                ]);
+
+                if ($user) {
+                    $password = $this->request->getPost('password', 'string');
+
+                    if ($this->security->checkHash($password, $user->password)) {
+                        // The password is valid, set 'auth' on session
+                        $this->session->set('auth', [
+                            'id' => $user->getId(),
+                            'name' => $user->getName(),
+                        ]);
+
+                        // redirect to index
+                        return $this->response->redirect(['for' => \Admin\Routes::INDEX_INDEX])->send();
+                    }
+                } else {
+                    // To protect against timing attacks. Regardless of whether a user
+                    // exists or not, the script will take roughly the same amount as
+                    // it will always be computing a hash.
+                    $this->security->hash(rand());
+                }
+
+                // The validation has failed
+                $this->flashSession->error('Login failed.');
             }
 
             // never send the password back, regardless of validity
