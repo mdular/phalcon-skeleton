@@ -86,4 +86,11 @@ class IndexController extends ControllerBase
         $this->response->setStatusCode(404);
         $this->tag->prependTitle('Not found - ');
     }
+
+    public function error403Action()
+    {
+        $this->response->resetHeaders();
+        $this->response->setStatusCode(403);
+        $this->tag->prependTitle('Not allowed - ');
+    }
 }
