@@ -68,5 +68,10 @@ class Module implements ModuleDefinitionInterface
 
             return $view;
         };
+
+        $di->setShared('acl', function () {
+            $ruleSet = new Ruleset();
+            return $ruleSet;
+        });
     }
 }

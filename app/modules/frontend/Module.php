@@ -43,5 +43,9 @@ class Module implements ModuleDefinitionInterface
 
             return $view;
         });
+
+        $di->setShared('acl', function () {
+            return new Ruleset();
+        });
     }
 }
