@@ -31,6 +31,7 @@ class IndexController extends ControllerBase
                         $this->session->set('auth', [
                             'id' => $user->getId(),
                             'name' => $user->getName(),
+                            'role' => \Admin\Ruleset::ROLE_ADMIN,
                         ]);
 
                         // redirect to index
