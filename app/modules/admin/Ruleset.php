@@ -51,11 +51,6 @@ class Ruleset
         return $this->acl->isAllowed($role, $controller, $action);
     }
 
-    public function getAdapter():Adapter
-    {
-        return $this->acl;
-    }
-
     public function getDefaultRole():string
     {
         return self::ROLE_GUEST;
