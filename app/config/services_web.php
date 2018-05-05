@@ -18,8 +18,11 @@ $di->setShared('router', function () {
     $router->notFound('Index::error404');
 
     $config = $this->getConfig();
-    $router->mount(new Frontend\Routes($config->modules->frontend->hostname));
-    $router->mount(new Admin\Routes($config->modules->admin->hostname));
+    $routes = [
+        'frontend' => 'Frontend\Routes',
+        'admin' => 'Admin\Routes',
+    ];
+    $router->mount(new $routes[APP_MODULE]($config->modules->{APP_MODULE}->hostname));
 
     return $router;
 });
