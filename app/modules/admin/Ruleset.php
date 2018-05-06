@@ -68,6 +68,7 @@ class Ruleset
     {
         return [
             'index' => ['index'],
+            'article' => ['*'],
         ];
     }
 

@@ -10,8 +10,13 @@ class Security extends Plugin
 {
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
-        // exit immediately on failed csrf check
-        if ($this->csrfCheck() === false) {
+        $isApiRequest = false;
+        if ($this->router->wasMatched()) {
+            $isApiRequest = preg_match('/\/api\/v1/', $this->router->getMatchedRoute()->getPattern());
+        }
+
+        // Non-API requests: exit immediately on failed csrf check
+        if ($isApiRequest === false && $this->csrfCheck() === false) {
             exit();
         }
 

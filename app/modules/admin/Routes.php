@@ -37,5 +37,12 @@ class Routes extends Group
 
         // match logout action
         $this->add('/logout', 'Index::logout')->setName(self::INDEX_LOGOUT);
+
+        // match article actions
+        $this->addGet('/api/v1/articles{page:(?:\?page=([0-9]+))?}', 'Article::list');
+        $this->addGet('/api/v1/article{id:/([0-9]+)}', 'Article::get');
+        $this->addPost('/api/v1/article', 'Article::post');
+        $this->addPut('/api/v1/article/{id:/([0-9]+)}', 'Article::put');
+        $this->addDelete('/api/v1/article/{id:/([0-9]+)}', 'Article::delete');
     }
 }
