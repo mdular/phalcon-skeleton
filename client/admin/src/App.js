@@ -69,6 +69,37 @@ class App extends Component {
             })
     }
 
+    loadArticle = (id) => {
+        let url = apiBaseUrl + '/article/' + id;
+        this.setLoading(true);
+        return fetch(url, {credentials: 'same-origin'})
+            .then(response => {
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    case 403:
+                        return window.location = "/login";
+                    default:
+                        throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                let articleData = this.state.articles.data;
+                articleData[id] = data;
+
+                this.setState({
+                    articles: Object.assign({}, this.state.articles, {
+                        data: articleData
+                    })
+                });
+                this.setLoading(false);
+            })
+            .catch(error => {
+                this.setLoading(false, error.message);
+                throw error;
+            })
+    }
+
     render() {
         return (
             <Router basename={baseUrl}>
@@ -95,7 +126,10 @@ class App extends Component {
                             loadData={this.loadArticleList}
                             />} />
                         <Route path="/article/:id" render={routeProps => <Article
-                            {...routeProps} />} />
+                            {...routeProps}
+                            data={this.state.articles.data[routeProps.match.params.id]}
+                            loadData={this.loadArticle}
+                            />} />
                         <Route render={() => <main><h1>Not found</h1></main>} />
                     </Switch>
                 </div>
