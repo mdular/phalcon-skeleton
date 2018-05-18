@@ -5,6 +5,7 @@ import Articles from './views/Articles.jsx';
 import Article from './views/Article.jsx';
 
 const baseUrl = '/adminapp';
+const apiBaseUrl = '/api/v1';
 
 class App extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class App extends Component {
     }
 
     loadArticleList = () => {
-        let url = '/api/v1/articles';
+        let url = apiBaseUrl + '/articles';
         let params = new URLSearchParams(window.location.search);
         if (window.location.search) {
             url += window.location.search;
@@ -38,7 +39,6 @@ class App extends Component {
         this.setLoading(true);
         return fetch(url, {credentials: 'same-origin'})
             .then(response => {
-                // console.log(response);
                 switch (response.status) {
                     case 200:
                         this.setState({
@@ -64,8 +64,8 @@ class App extends Component {
                 this.setLoading(false);
             })
             .catch(error => {
-                this.setLoading(false, error.message)
-                throw error; // TODO: error handling
+                this.setLoading(false, error.message);
+                throw error;
             })
     }
 
