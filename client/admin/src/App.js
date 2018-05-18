@@ -13,10 +13,11 @@ class App extends Component {
             loading: false,
             loadingError: null,
             articles: {
-                list: [
-                    {id: 1, title: "Totally an article", content: "Full of content"},
-                    {id: 2, title: "Another one", content: "Full of other content"}
-                ]
+                currentPage: null,
+                pages: null,
+                count: null,
+                list: [],
+                data: {}
             }
         };
     }
@@ -26,6 +27,46 @@ class App extends Component {
             loading: state,
             loadingError: message
         });
+    }
+
+    loadArticleList = () => {
+        let url = '/api/v1/articles';
+        let params = new URLSearchParams(window.location.search);
+        if (window.location.search) {
+            url += window.location.search;
+        }
+        this.setLoading(true);
+        return fetch(url, {credentials: 'same-origin'})
+            .then(response => {
+                // console.log(response);
+                switch (response.status) {
+                    case 200:
+                        this.setState({
+                            articles: Object.assign({}, this.state.articles, {
+                                count: response.headers.get('x-count'),
+                                pages: response.headers.get('x-pages')
+                            })
+                        });
+                        return response.json();
+                    case 403:
+                        return window.location = "/login";
+                    default:
+                        throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                this.setState({
+                    articles: Object.assign({}, this.state.articles, {
+                        list: data,
+                        currentPage: params.get('page') || 1
+                    })
+                });
+                this.setLoading(false);
+            })
+            .catch(error => {
+                this.setLoading(false, error.message)
+                throw error; // TODO: error handling
+            })
     }
 
     render() {
@@ -51,6 +92,7 @@ class App extends Component {
                         <Route exact path="/" render={routeProps => <Articles
                             {...routeProps}
                             data={this.state.articles}
+                            loadData={this.loadArticleList}
                             />} />
                         <Route path="/article/:id" render={routeProps => <Article
                             {...routeProps} />} />
