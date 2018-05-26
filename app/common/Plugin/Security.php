@@ -15,6 +15,11 @@ class Security extends Plugin
             $isApiRequest = preg_match('/\/api\/v1/', $this->router->getMatchedRoute()->getPattern());
         }
 
+        // API requests: exit immediately on failed api token check
+        if ($isApiRequest === true && $this->apiTokenCheck() === false) {
+            exit();
+        }
+
         // Non-API requests: exit immediately on failed csrf check
         if ($isApiRequest === false && $this->csrfCheck() === false) {
             exit();
@@ -57,7 +62,20 @@ class Security extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
+        if (DEBUG) {
+            $this->logger->info($role);
+            $this->logger->info($controller);
+            $this->logger->info($action);
+            $this->logger->info((string) $this->acl->isAllowed($role, $controller, $action));
+        }
+
         return $this->acl->isAllowed($role, $controller, $action);
+    }
+
+    protected function apiTokenCheck():bool
+    {
+        // TODO: implement
+        return true;
     }
 
     protected function csrfCheck():bool
