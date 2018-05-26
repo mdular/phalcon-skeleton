@@ -22,6 +22,8 @@ export default class Articles extends Component {
             <main>no articles yet!</main>
         );
 
+        // TODO: add pagination
+
         return (
             <main>
                 {this.props.data.list.map(item => {
@@ -29,11 +31,11 @@ export default class Articles extends Component {
                         <article key={item.id}>
                             <Link to={"/article/" + item.id}>View</Link>
                             <h3>{item.title}</h3>
-                            {item.content}
+                            {item.state}
                         </article>
                     );
                 })}
             </main>
-        )
+        );
     }
 }

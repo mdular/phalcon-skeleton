@@ -50,6 +50,7 @@ class App extends Component {
                         return response.json();
                     case 403:
                         return window.location = "/login";
+                        // TODO: not found handling
                     default:
                         throw new Error('Network response was not ok');
                 }
@@ -79,6 +80,7 @@ class App extends Component {
                         return response.json();
                     case 403:
                         return window.location = "/login";
+                        // TODO: not found handling
                     default:
                         throw new Error('Network response was not ok');
                 }
@@ -86,6 +88,54 @@ class App extends Component {
             .then(data => {
                 let articleData = this.state.articles.data;
                 articleData[id] = data;
+
+                this.setState({
+                    articles: Object.assign({}, this.state.articles, {
+                        data: articleData
+                    })
+                });
+                this.setLoading(false);
+            })
+            .catch(error => {
+                this.setLoading(false, error.message);
+                throw error;
+            })
+    }
+
+    handleArticleFormChange = (id, event) => {
+        console.log('change', id, event.target);
+
+        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+
+        let articleData = this.state.articles.data;
+        articleData[id][event.target.name] = value;
+
+        this.setState({
+            articles: Object.assign({}, this.state.articles, {
+                data: articleData
+            })
+        });
+    }
+
+    updateArticle = (id, data) => {
+        let url = apiBaseUrl + '/article/' + id;
+        this.setLoading(true);
+        return fetch(url, {credentials: 'same-origin', method: 'PUT'})
+            .then(response => {
+                switch (response.status) {
+                    case 200:
+                        return response.json();
+                    case 403:
+                        return window.location = "/login";
+                        // TODO: not found handling
+                    default:
+                        throw new Error('Network response was not ok');
+                }
+            })
+            .then(response => {
+                console.log('update', response);
+                let articleData = this.state.articles.data;
+                articleData[id] = response;
 
                 this.setState({
                     articles: Object.assign({}, this.state.articles, {
@@ -112,6 +162,8 @@ class App extends Component {
                         <nav>
                             <NavLink to="/">Articles</NavLink>
                             <a href="/logout">Logout</a>
+                            <NavLink to="/?page=2">Articles page 2</NavLink>
+                            <NavLink to="/article/create">Create new</NavLink>
                         </nav>
                     </header>
 
@@ -129,6 +181,8 @@ class App extends Component {
                             {...routeProps}
                             data={this.state.articles.data[routeProps.match.params.id]}
                             loadData={this.loadArticle}
+                            updateArticle={this.updateArticle}
+                            handleArticleFormChange={this.handleArticleFormChange}
                             />} />
                         <Route render={() => <main><h1>Not found</h1></main>} />
                     </Switch>
