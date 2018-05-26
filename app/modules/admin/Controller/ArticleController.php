@@ -35,7 +35,6 @@ class ArticleController extends Controller
 
         // 404 empty pages
         if ($page > $articles->total_pages) {
-            // if content does not exist, show 404
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
@@ -47,7 +46,7 @@ class ArticleController extends Controller
 
     public function getAction()
     {
-        // find one article where the url matches the input and state = published
+        // find one article by id
         $article = \Model\Article::findFirst([
             'conditions' => 'id = ?1',
             'bind' => [
@@ -57,7 +56,6 @@ class ArticleController extends Controller
 
         // if no article was found, return 404 Not found
         if (!$article) {
-            // if content does not exist, show 404
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
@@ -71,7 +69,22 @@ class ArticleController extends Controller
 
     public function putAction()
     {
+        // find one article by id
+        $article = \Model\Article::findFirst([
+            'conditions' => 'id = ?1',
+            'bind' => [
+                1 => $this->dispatcher->getParam('id', 'int'),
+            ],
+        ]);
 
+        // if no article was found, return 404 Not found
+        if (!$article) {
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
+        }
+
+        // TODO: bind, validate, save changes
+
+        return $this->response->setJsonContent($article);
     }
 
     public function deleteAction()
