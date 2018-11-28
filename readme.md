@@ -30,3 +30,14 @@ Now you can access the project via [http://localhost:8000/](http://localhost:800
 
 The admin modules can now be accessed via:
 [http://localhost:9000/](http://localhost:9000/)
+
+
+## Running the development server for the admin client
+
+    cd client/admin
+    npm start
+
+## Building the admin client
+
+    cd client/admin
+    npm run build
