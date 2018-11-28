@@ -103,7 +103,7 @@ class App extends Component {
     }
 
     handleArticleFormChange = (id, event) => {
-        console.log('change', id, event.target);
+        // console.log('change', id, event.target);
 
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
@@ -120,10 +120,11 @@ class App extends Component {
     updateArticle = (id, data) => {
         let url = apiBaseUrl + '/article/' + id;
         this.setLoading(true);
-        return fetch(url, {credentials: 'same-origin', method: 'PUT'})
+        return fetch(url, {credentials: 'same-origin', method: 'PUT', body: JSON.stringify(this.state.articles.data[id])})
             .then(response => {
                 switch (response.status) {
                     case 200:
+                    case 401:
                         return response.json();
                     case 403:
                         return window.location = "/login";

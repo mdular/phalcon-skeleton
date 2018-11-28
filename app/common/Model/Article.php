@@ -378,6 +378,49 @@ class Article extends \Phalcon\Mvc\Model
         $this->setSource("article");
     }
 
+    public function validation()
+    {
+        $validator = new \Phalcon\Validation();
+
+        $validator->add(
+            'url',
+            new \Phalcon\Validation\Validator\PresenceOf([
+                'message' => 'url is required',
+            ])
+        );
+
+        $validator->add(
+            'title',
+            new \Phalcon\Validation\Validator\PresenceOf([
+                'message' => 'title is required',
+            ])
+        );
+
+        $validator->add(
+            'excerpt',
+            new \Phalcon\Validation\Validator\PresenceOf([
+                'message' => 'excerpt is required',
+            ])
+        );
+
+        $validator->add(
+            'content',
+            new \Phalcon\Validation\Validator\PresenceOf([
+                'message' => 'content is required',
+            ])
+        );
+
+        return $this->validate($validator);
+    }
+
+    public function beforeSave()
+    {
+        if (!empty($this->getUpdatedAt())){
+            $now = new \DateTime("now");
+            $this->setUpdatedAt($now->format('Y-m-d H:i:s.uO'));
+        }
+    }
+
     /**
      * Allows to query a set of records that match the specified conditions
      *

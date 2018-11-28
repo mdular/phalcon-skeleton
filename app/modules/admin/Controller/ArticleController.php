@@ -64,7 +64,22 @@ class ArticleController extends Controller
 
     public function postAction()
     {
+        // validate, save changes
+        $messages = $this->validate($article, $this->request->getJsonRawBody(true));
 
+        $response = [];
+        if ($messages !== null || $article->save() !== true) {
+            $fields = [];
+            foreach ($messages as $message) {
+                $fields[$message->getField()] = $message->getMessage();
+            }
+
+            $response['messages'] = $fields;
+            $this->response->setStatusCode(401);
+        }
+
+        $response = array_merge($response, $article->toArray());
+        return $this->response->setJsonContent($response);
     }
 
     public function putAction()
@@ -82,13 +97,36 @@ class ArticleController extends Controller
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
-        // TODO: bind, validate, save changes
+        // validate, save changes
+        $messages = $this->validate($article, $this->request->getJsonRawBody(true));
 
-        return $this->response->setJsonContent($article);
+        $response = [];
+        if ($messages !== null || $article->update() !== true) {
+            $fields = [];
+            foreach ($messages as $message) {
+                $fields[$message->getField()] = $message->getMessage();
+            }
+
+            $response['messages'] = $fields;
+            $this->response->setStatusCode(401);
+        }
+
+        $response = array_merge($response, $article->toArray());
+        return $this->response->setJsonContent($response);
     }
 
     public function deleteAction()
     {
 
+    }
+
+    protected function validate($entity, $data)
+    {
+        unset($data['messages']);
+        $entity->assign($data);
+        $entity->validation();
+        $messages = $entity->getMessages();
+
+        return $messages;
     }
 }

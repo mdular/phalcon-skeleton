@@ -15,7 +15,7 @@ export default class Articles extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         if (this.props.data.currentPage === null) return null;
 
         if (this.props.data.count === 0) return (
@@ -32,6 +32,7 @@ export default class Articles extends Component {
                             <Link to={"/article/" + item.id}>View</Link>
                             <h3>{item.title}</h3>
                             {item.state}
+                            {/*JSON.stringify(item, 0, 2)*/}
                         </article>
                     );
                 })}

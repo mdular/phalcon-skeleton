@@ -51,7 +51,7 @@ require APP_PATH . '/config/services_web.php';
 /**
  * Get config service for use in inline setup below
  */
-$config = $di->getConfig();
+// $config = $di->getConfig();
 
 /**
  * Handle the request

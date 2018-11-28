@@ -41,13 +41,15 @@ export default class Article extends Component {
             return null;
         }
 
-        let messages = this.props.messages || [];
+        let messages = this.props.data.messages || [];
+
+        // console.log(this.props);
 
         return (
             <main>
-                {this.props.messages &&
+                {this.props.data.messages &&
                 <p className="form__errorheader">
-                    Login failed. Please resolve the errors below and try again.
+                    Validation failed. Please resolve the errors below and try again.
                 </p>
                 }
 
@@ -152,11 +154,6 @@ class Submit extends Component {
 }
 
 class FormElement extends Component {
-    onChange (event) {
-        // we're listening to changes on the <form>, but react warns us for not having onChange set directly on fields..
-        return true;
-    }
-
     render () {
         return (
             <div className={'form__element' + (this.props.message ? ' form__error' : '')}>
