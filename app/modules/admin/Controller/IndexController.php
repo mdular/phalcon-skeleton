@@ -6,6 +6,9 @@ class IndexController extends ControllerBase
 {
     public function indexAction()
     {
+        // $2a$(2 chars work)$(22 chars salt)(31 chars hash)
+        // var_dump($this->security->hash('USESAFEPASSWORDINSTEAD'));
+        // exit;
     }
 
     public function loginAction()
