@@ -44,6 +44,6 @@ class Routes extends Group
         $this->add('/{page:(about|imprint)}', 'Page::show')->setName(self::PAGE_SHOW);
 
         // match contact page
-        $this->add('/contact{success:(\/success)?}', 'Page::contact')->setName(self::PAGE_CONTACT);
+        $this->add('/contact{success:(/success)?}', 'Page::contact')->setName(self::PAGE_CONTACT);
     }
 }

@@ -71,7 +71,7 @@ $di->setShared('dispatcher', function() use ($di) {
     $eventsManager->attach('dispatch:beforeException', function (Phalcon\Events\Event $e, $dispatcher, \Throwable $exception) {
 
         if ($exception instanceof \Phalcon\Mvc\Dispatcher\Exception === false) {
-            return;
+            return true;
         }
 
         switch($exception->getCode()){
@@ -88,6 +88,8 @@ $di->setShared('dispatcher', function() use ($di) {
             //     $response->sendHeaders();
             //     return false;
         }
+
+        return true;
     });
 
     $eventsManager->attach('dispatch:beforeExecuteRoute', new Plugin\Security());

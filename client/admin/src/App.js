@@ -49,8 +49,10 @@ class App extends Component {
                         });
                         return response.json();
                     case 403:
-                        return window.location = "/login";
+                        throw new Error('Not authorized');
+                    case 404:
                         // TODO: not found handling
+                        throw new Error('Not found');
                     default:
                         throw new Error('Network response was not ok');
                 }
@@ -68,7 +70,7 @@ class App extends Component {
                 this.setLoading(false, error.message);
                 throw error;
             })
-    }
+    };
 
     loadArticle = (id) => {
         let url = apiBaseUrl + '/article/' + id;
@@ -77,10 +79,13 @@ class App extends Component {
             .then(response => {
                 switch (response.status) {
                     case 200:
+                    case 400:
                         return response.json();
                     case 403:
-                        return window.location = "/login";
+                        throw new Error('Not authorized');
+                    case 404:
                         // TODO: not found handling
+                        throw new Error('Not found');
                     default:
                         throw new Error('Network response was not ok');
                 }
@@ -100,7 +105,7 @@ class App extends Component {
                 this.setLoading(false, error.message);
                 throw error;
             })
-    }
+    };
 
     handleArticleFormChange = (id, event) => {
         // console.log('change', id, event.target);
@@ -115,7 +120,7 @@ class App extends Component {
                 data: articleData
             })
         });
-    }
+    };
 
     updateArticle = (id, data) => {
         let url = apiBaseUrl + '/article/' + id;
@@ -124,17 +129,18 @@ class App extends Component {
             .then(response => {
                 switch (response.status) {
                     case 200:
-                    case 401:
+                    case 400:
                         return response.json();
                     case 403:
-                        return window.location = "/login";
+                        throw new Error('Not authorized');
+                    case 404:
                         // TODO: not found handling
+                        throw new Error('Not found');
                     default:
                         throw new Error('Network response was not ok');
                 }
             })
             .then(response => {
-                console.log('update', response);
                 let articleData = this.state.articles.data;
                 articleData[id] = response;
 
@@ -149,7 +155,7 @@ class App extends Component {
                 this.setLoading(false, error.message);
                 throw error;
             })
-    }
+    };
 
     render() {
         return (

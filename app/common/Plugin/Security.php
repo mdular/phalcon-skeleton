@@ -38,7 +38,6 @@ class Security extends Plugin
                 'controller' => 'index',
                 'action' => 'login',
             ]);
-            return false;
         }
 
         return $dispatcher->forward([
