@@ -146,7 +146,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @return \Phalcon\Http\ResponseInterface
      * @throws \Phalcon\Mvc\Dispatcher\Exception
      */
     public function deleteAction()
@@ -164,6 +164,10 @@ class ArticleController extends Controller
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
-        return $this->response->setJsonContent($article->delete());
+        if ($article->delete()) {
+            return $this->response->setStatusCode(204);
+        }
+
+        throw new \Exception('failed to delete resource');
     }
 }
