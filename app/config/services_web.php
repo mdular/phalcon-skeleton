@@ -82,11 +82,11 @@ $di->setShared('dispatcher', function() use ($di) {
                     'action'    => 'error404'
                 ]);
             // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_HANDLER:
-            // case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_PARAMS:
-            //     $response = $dispatcher->getDi()->getShared('response');
-            //     $response->setStatusCode(400);
-            //     $response->sendHeaders();
-            //     return false;
+            case Phalcon\Mvc\Dispatcher::EXCEPTION_INVALID_PARAMS:
+                 $response = $dispatcher->getDi()->getShared('response');
+                 $response->setStatusCode(400);
+                 $response->sendHeaders();
+                 return false;
         }
 
         return true;
