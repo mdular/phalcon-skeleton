@@ -382,18 +382,37 @@ class Article extends \Phalcon\Mvc\Model
     {
         $validator = new \Phalcon\Validation();
 
-        $validator->add(
+        $validator->rules(
             'url',
-            new \Phalcon\Validation\Validator\PresenceOf([
-                'message' => 'url is required',
-            ])
+            [
+                new \Phalcon\Validation\Validator\PresenceOf([
+                    'message' => 'url is required',
+                ]),
+                new \Phalcon\Validation\Validator\StringLength([
+                    'max'            => 128,
+                    'min'            => 3,
+                    'messageMaximum' => 'url must be shorter than :max characters',
+                    'messageMinimum' => "url must be longer than :min characters",
+                ]),
+                new \Phalcon\Validation\Validator\Uniqueness([
+                    'message' => 'url must be unique'
+                ]),
+            ]
         );
 
-        $validator->add(
+        $validator->rules(
             'title',
-            new \Phalcon\Validation\Validator\PresenceOf([
-                'message' => 'title is required',
-            ])
+            [
+                new \Phalcon\Validation\Validator\PresenceOf([
+                    'message' => 'title is required',
+                ]),
+                new \Phalcon\Validation\Validator\StringLength([
+                    'max'            => 128,
+                    'min'            => 3,
+                    'messageMaximum' => 'title must be shorter than :max characters',
+                    'messageMinimum' => 'title must be longer than :min characters',
+                ]),
+            ]
         );
 
         $validator->add(
@@ -410,14 +429,48 @@ class Article extends \Phalcon\Mvc\Model
             ])
         );
 
+        $validator->add(
+            'content_type',
+            new \Phalcon\Validation\Validator\InclusionIn([
+                'domain' => ['html', 'markdown'],
+                'message' => 'content type must be one of: :domain'
+            ])
+        );
+
+        $validator->add(
+            'tags',
+            new \Phalcon\Validation\Validator\StringLength([
+                'max'            => 256,
+                'min'            => 0,
+                'messageMaximum' => 'tags must be shorter than :max characters',
+                'messageMinimum' => 'tags must be longer than :min characters',
+            ])
+        );
+
+        $validator->add(
+            'state',
+            new \Phalcon\Validation\Validator\InclusionIn([
+                'domain' => ['published', 'unpublished'],
+                'message' => 'state type must be one of: :domain'
+            ])
+        );
+
         return $this->validate($validator);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function beforeSave()
     {
-        if (!empty($this->getUpdatedAt())){
+        $now = new \DateTime("now");
+        $this->setUpdatedAt($now->format('Y-m-d H:i:s.uO'));
+
+        if ($this->getState() === 'published' && empty($this->getPublishedAt())) {
             $now = new \DateTime("now");
-            $this->setUpdatedAt($now->format('Y-m-d H:i:s.uO'));
+            $this->setPublishedAt($now->format('Y-m-d H:i:s.uO'));
+        } else if ($this->getState() !== 'published' && !empty($this->getPublishedAt())) {
+            $this->setPublishedAt(null);
         }
     }
 
@@ -455,6 +508,7 @@ class Article extends \Phalcon\Mvc\Model
 
     /**
      * Returns processed content based on content_type
+     * @throws \Exception
      */
     public function getProcessedContent()
     {

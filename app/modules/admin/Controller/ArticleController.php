@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Admin\Routes;
 use Phalcon\Mvc\Controller;
 
 class ArticleController extends Controller
@@ -12,15 +13,19 @@ class ArticleController extends Controller
         $this->response->setContentType('application/json');
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Mvc\Dispatcher\Exception
+     */
     public function listAction()
     {
         $page = (int) $this->dispatcher->getParam('page', 'int') ?: 1;
 
         // build a query
         $builder = $this->modelsManager->createBuilder()
-                ->columns(['id', 'url', 'title', 'content_type', 'tags', 'state', 'author_id', 'created_at'])
+                ->columns(['id', 'url', 'title', 'content_type', 'tags', 'state', 'author_id', 'published_at'])
                 ->from(\Model\Article::class)
-                ->orderBy('created_at DESC');
+                ->orderBy('published_at DESC');
 
         // create paginator for query
         $paginator = \Phalcon\Paginator\Factory::load([
@@ -44,6 +49,44 @@ class ArticleController extends Controller
         return $this->response->setJsonContent($articles->items);
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Mvc\Dispatcher\Exception
+     */
+    public function postAction()
+    {
+        $data = $this->request->getJsonRawBody(true);
+        unset($data['messages']);
+
+        if (is_null($data) || isset($data['id']) || isset($data['created_at']) || isset($data['updated_at'])) {
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Bad Request', \Phalcon\Dispatcher::EXCEPTION_INVALID_PARAMS);
+        }
+
+        $article = new \Model\Article();
+        $article->setAuthorId($this->session->get('auth')['id']);
+
+        // validate + save changes, or show errors
+        if ($article->save($data)) {
+            $this->response->setStatusCode(201);
+            return $this->response->setHeader('Location', $this->url->get([
+                'for' => Routes::API1_ARTICLE_READ,
+                'id' => $article->getId(),
+            ]));
+        }
+
+        $response = array_merge(['messages' => []], $article->toArray());
+        foreach ($article->getMessages() as $message) {
+            $response['messages'][$message->getField()] = $message->getMessage();
+        }
+
+        $this->response->setStatusCode(400);
+        return $this->response->setJsonContent($response);
+    }
+
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Mvc\Dispatcher\Exception
+     */
     public function getAction()
     {
         // find one article by id
@@ -62,27 +105,51 @@ class ArticleController extends Controller
         return $this->response->setJsonContent($article);
     }
 
-    public function postAction()
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Mvc\Dispatcher\Exception
+     */
+    public function putAction()
     {
-        // validate, save changes
-        $messages = $this->validate($article, $this->request->getJsonRawBody(true));
+        $data = $this->request->getJsonRawBody(true);
+        unset($data['messages']);
 
-        $response = [];
-        if ($messages !== null || $article->save() !== true) {
-            $fields = [];
-            foreach ($messages as $message) {
-                $fields[$message->getField()] = $message->getMessage();
-            }
-
-            $response['messages'] = $fields;
-            $this->response->setStatusCode(401);
+        if (is_null($data) || isset($data['id']) || isset($data['created_at']) || isset($data['updated_at'])) {
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Bad Request', \Phalcon\Dispatcher::EXCEPTION_INVALID_PARAMS);
         }
 
-        $response = array_merge($response, $article->toArray());
+        // find one article by id
+        $article = \Model\Article::findFirst([
+            'conditions' => 'id = ?1',
+            'bind' => [
+                1 => $this->dispatcher->getParam('id', 'int'),
+            ],
+        ]);
+
+        // if no article was found, return 404 Not found
+        if (!$article) {
+            throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
+        }
+
+        // validate + save changes, or show errors
+        if ($article->save($data)) {
+            return $this->response->setJsonContent($article);
+        }
+
+        $response = array_merge(['messages' => []], $article->toArray());
+        foreach ($article->getMessages() as $message) {
+            $response['messages'][$message->getField()] = $message->getMessage();
+        }
+
+        $this->response->setStatusCode(400);
         return $this->response->setJsonContent($response);
     }
 
-    public function putAction()
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Mvc\Dispatcher\Exception
+     */
+    public function deleteAction()
     {
         // find one article by id
         $article = \Model\Article::findFirst([
@@ -97,36 +164,6 @@ class ArticleController extends Controller
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
-        // validate, save changes
-        $messages = $this->validate($article, $this->request->getJsonRawBody(true));
-
-        $response = [];
-        if ($messages !== null || $article->update() !== true) {
-            $fields = [];
-            foreach ($messages as $message) {
-                $fields[$message->getField()] = $message->getMessage();
-            }
-
-            $response['messages'] = $fields;
-            $this->response->setStatusCode(401);
-        }
-
-        $response = array_merge($response, $article->toArray());
-        return $this->response->setJsonContent($response);
-    }
-
-    public function deleteAction()
-    {
-
-    }
-
-    protected function validate($entity, $data)
-    {
-        unset($data['messages']);
-        $entity->assign($data);
-        $entity->validation();
-        $messages = $entity->getMessages();
-
-        return $messages;
+        return $this->response->setJsonContent($article->delete());
     }
 }
