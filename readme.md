@@ -32,6 +32,11 @@ The admin modules can now be accessed via:
 [http://localhost:9000/](http://localhost:9000/)
 
 
+## Intall npm dependencies
+
+    cd client/admin
+    npm install
+
 ## Running the development server for the admin client
 
     cd client/admin
