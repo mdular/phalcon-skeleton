@@ -6,7 +6,8 @@
         "ext-pdo_pgsql": "*",
         "ext-apcu": "*",
         "phalcon/incubator": "^3.3",
-        "erusev/parsedown": "^1.6"
+        "erusev/parsedown": "^1.6",
+        "swiftmailer/swiftmailer": "^6.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.4",

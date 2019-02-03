@@ -19,7 +19,7 @@ class ArticleController extends Controller
         // build a query
         $builder = $this->modelsManager->createBuilder()
                 ->columns(['id', 'url', 'title', 'content_type', 'tags', 'state', 'author_id', 'created_at'])
-                ->from('Model\Article')
+                ->from(\Model\Article::class)
                 ->orderBy('created_at DESC');
 
         // create paginator for query
