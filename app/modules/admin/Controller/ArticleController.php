@@ -23,9 +23,9 @@ class ArticleController extends Controller
 
         // build a query
         $builder = $this->modelsManager->createBuilder()
-                ->columns(['id', 'url', 'title', 'content_type', 'tags', 'state', 'author_id', 'published_at'])
+                ->columns(['id', 'url', 'title', 'content_type', 'tags', 'state', 'author_id', 'created_at'])
                 ->from(\Model\Article::class)
-                ->orderBy('published_at DESC');
+                ->orderBy('id DESC');
 
         // create paginator for query
         $paginator = \Phalcon\Paginator\Factory::load([
