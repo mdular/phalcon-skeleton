@@ -169,7 +169,6 @@ class App extends Component {
                         <nav>
                             <NavLink to="/">Articles</NavLink>
                             <a href="/logout">Logout</a>
-                            <NavLink to="/?page=2">Articles page 2</NavLink>
                             <NavLink to="/article/create">Create new</NavLink>
                         </nav>
                     </header>
