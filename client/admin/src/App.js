@@ -43,8 +43,8 @@ class App extends Component {
                     case 200:
                         this.setState({
                             articles: Object.assign({}, this.state.articles, {
-                                count: response.headers.get('x-count'),
-                                pages: response.headers.get('x-pages')
+                                count: parseInt(response.headers.get('x-count'), 10),
+                                pages: parseInt(response.headers.get('x-pages'), 10)
                             })
                         });
                         return response.json();
@@ -61,7 +61,7 @@ class App extends Component {
                 this.setState({
                     articles: Object.assign({}, this.state.articles, {
                         list: data,
-                        currentPage: params.get('page') || 1
+                        currentPage: parseInt(params.get('page'), 10) || 1
                     })
                 });
                 this.setLoading(false);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export default class Articles extends Component {
     componentDidMount() {
@@ -22,10 +22,18 @@ export default class Articles extends Component {
             <main>no articles yet!</main>
         );
 
-        // TODO: add pagination
+        let pages = [];
+        for(let page = 1; page <= this.props.data.pages; page++){
+            pages.push(<NavLink key={page} to={"/?page=" + page} isActive={() => page===this.props.data.currentPage}>{page}</NavLink>);
+        }
 
         return (
             <main>
+                {this.props.data.pages > 1 &&
+                    <nav className="pager">
+                        Pages: {pages}
+                    </nav>
+                }
                 {this.props.data.list.map(item => {
                     return (
                         <article key={item.id}>
@@ -36,6 +44,11 @@ export default class Articles extends Component {
                         </article>
                     );
                 })}
+                {this.props.data.pages > 1 &&
+                    <nav className="pager">
+                        Pages: {pages}
+                    </nav>
+                }
             </main>
         );
     }
