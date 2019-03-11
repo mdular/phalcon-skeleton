@@ -7,6 +7,8 @@ use Phalcon\Mvc\Controller;
 
 class ArticleController extends Controller
 {
+    const ARTICLE_RESPONSE_FIELDS = ['url', 'title', 'excerpt', 'content', 'content_type', 'tags', 'state', 'author_id', 'published_at'];
+
     public function initialize()
     {
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
@@ -74,7 +76,7 @@ class ArticleController extends Controller
             ]));
         }
 
-        $response = array_merge(['messages' => []], $article->toArray());
+        $response = array_merge(['messages' => []], $article->toArray(self::ARTICLE_RESPONSE_FIELDS));
         foreach ($article->getMessages() as $message) {
             $response['messages'][$message->getField()] = $message->getMessage();
         }
@@ -102,7 +104,7 @@ class ArticleController extends Controller
             throw new \Phalcon\Mvc\Dispatcher\Exception('Resource unavailable', \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND);
         }
 
-        return $this->response->setJsonContent($article);
+        return $this->response->setJsonContent($article->toArray(self::ARTICLE_RESPONSE_FIELDS));
     }
 
     /**
@@ -133,10 +135,10 @@ class ArticleController extends Controller
 
         // validate + save changes, or show errors
         if ($article->save($data)) {
-            return $this->response->setJsonContent($article);
+            return $this->response->setJsonContent($article->toArray(self::ARTICLE_RESPONSE_FIELDS));
         }
 
-        $response = array_merge(['messages' => []], $article->toArray());
+        $response = array_merge(['messages' => []], $article->toArray(self::ARTICLE_RESPONSE_FIELDS));
         foreach ($article->getMessages() as $message) {
             $response['messages'][$message->getField()] = $message->getMessage();
         }

@@ -19,7 +19,7 @@ export default class Article extends Component {
         let state = this.state;
         delete state.submitDisabled;
 
-        this.props.updateArticle(this.props.data.id, state)
+        this.props.updateArticle(this.props.match.params.id, state)
             .then(result => {
                 this.setState({submitDisabled: false});
             })
@@ -33,7 +33,7 @@ export default class Article extends Component {
     }
 
     onChange = (event) => {
-        this.props.handleArticleFormChange(this.props.data.id, event);
+        this.props.handleArticleFormChange(this.props.match.params.id, event);
     }
 
     render() {
