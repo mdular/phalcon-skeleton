@@ -64,11 +64,11 @@ class ArticleController extends Controller
             throw new \Phalcon\Mvc\Dispatcher\Exception('Bad Request', \Phalcon\Dispatcher::EXCEPTION_INVALID_PARAMS);
         }
 
-        $article = new \Model\Article();
+        $article = new \Model\Article($data);
         $article->setAuthorId($this->session->get('auth')['id']);
 
         // validate + save changes, or show errors
-        if ($article->save($data)) {
+        if ($article->validation() && $article->save($data)) {
             $this->response->setStatusCode(201);
             return $this->response->setHeader('Location', $this->url->get([
                 'for' => Routes::API1_ARTICLE_READ,
@@ -134,7 +134,7 @@ class ArticleController extends Controller
         }
 
         // validate + save changes, or show errors
-        if ($article->save($data)) {
+        if ($article->validation() && $article->save($data)) {
             return $this->response->setJsonContent($article->toArray(self::ARTICLE_RESPONSE_FIELDS));
         }
 

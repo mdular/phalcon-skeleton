@@ -404,7 +404,7 @@ class Article extends \Phalcon\Mvc\Model
             'title',
             [
                 new \Phalcon\Validation\Validator\PresenceOf([
-                    'message' => 'title is required',
+                    'message' => 'Title is required',
                 ]),
                 new \Phalcon\Validation\Validator\StringLength([
                     'max'            => 128,

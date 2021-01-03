@@ -7,6 +7,17 @@ import Article from './views/Article.jsx';
 const baseUrl = '/adminapp';
 const apiBaseUrl = '/api/v1';
 
+const articleDraft = {
+    url: null,
+    title: null,
+    excerpt: null,
+    content: null,
+    content_type: "markdown",
+    tags: null,
+    state: "unpublished",
+    published_at: null
+};
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +29,7 @@ class App extends Component {
                 pages: null,
                 count: null,
                 list: [],
-                data: {}
+                data: {draft: articleDraft}
             }
         };
     }
@@ -108,12 +119,18 @@ class App extends Component {
     };
 
     handleArticleFormChange = (id, event) => {
-        // console.log('change', id, event.target);
+        let target, value;
 
-        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        if (typeof event.target === 'undefined') {
+            target = 'content';
+            value = event;
+        } else {
+            target = event.target.name;
+            value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        }
 
         let articleData = this.state.articles.data;
-        articleData[id][event.target.name] = value;
+        articleData[id][target] = value;
 
         this.setState({
             articles: Object.assign({}, this.state.articles, {
@@ -122,7 +139,7 @@ class App extends Component {
         });
     };
 
-    updateArticle = (id, data) => {
+    updateArticle = (id) => {
         let url = apiBaseUrl + '/article/' + id;
         this.setLoading(true);
         return fetch(url, {credentials: 'same-origin', method: 'PUT', body: JSON.stringify(this.state.articles.data[id])})
@@ -141,15 +158,38 @@ class App extends Component {
                 }
             })
             .then(response => {
-                let articleData = this.state.articles.data;
-                articleData[id] = response;
-
                 this.setState({
                     articles: Object.assign({}, this.state.articles, {
-                        data: articleData
+                        data: {[id]: response}
                     })
                 });
                 this.setLoading(false);
+            })
+            .catch(error => {
+                this.setLoading(false, error.message);
+                throw error;
+            })
+    };
+
+    createArticle = (id) => {
+        let url = apiBaseUrl + '/article';
+        this.setLoading(true);
+        return fetch(url, {credentials: 'same-origin', method: 'POST', body: JSON.stringify(this.state.articles.data[id])})
+            .then(response => {
+                switch (response.status) {
+                    case 201:
+                        this.setState({articles: Object.assign({}, this.state.articles, {data: {draft: articleDraft}})});
+                        return window.location = baseUrl + '/article/' + new URL(response.headers.get('Location')).pathname.split('/').pop();
+                    case 400:
+                        return response.json();
+                    case 403:
+                        throw new Error('Not authorized');
+                    default:
+                        throw new Error('Network response was not ok');
+                }
+            })
+            .then(response => {
+                this.setState({articles: Object.assign({}, this.state.articles, {data: {[id]: response}})});
             })
             .catch(error => {
                 this.setLoading(false, error.message);
@@ -168,8 +208,8 @@ class App extends Component {
                         </h2>
                         <nav>
                             <NavLink to="/">Articles</NavLink>
-                            <a href="/logout">Logout</a>
-                            <NavLink to="/article/create">Create new</NavLink>
+                            <a href={"/logout"}>Logout</a>
+                            <Link to="/article/draft">Create new</Link>
                         </nav>
                     </header>
 
@@ -182,14 +222,21 @@ class App extends Component {
                             {...routeProps}
                             data={this.state.articles}
                             loadData={this.loadArticleList}
-                            />} />
-                        <Route path="/article/:id" render={routeProps => <Article
+                        />} />
+                        <Route exact path="/article/:id(\d+)" render={routeProps => <Article
                             {...routeProps}
                             data={this.state.articles.data[routeProps.match.params.id]}
                             loadData={this.loadArticle}
                             updateArticle={this.updateArticle}
                             handleArticleFormChange={this.handleArticleFormChange}
-                            />} />
+                        />} />
+                        <Route exact path="/article/:id(draft)" render={routeProps => <Article
+                            {...routeProps}
+                            data={this.state.articles.data.draft}
+                            updateArticle={this.createArticle}
+                            handleArticleFormChange={this.handleArticleFormChange}
+                        />} />
+                        }
                         <Route render={() => <main><h1>Not found</h1></main>} />
                     </Switch>
                 </div>

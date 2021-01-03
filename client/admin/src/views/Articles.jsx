@@ -15,7 +15,6 @@ export default class Articles extends Component {
     }
 
     render() {
-        // console.log(this.props)
         if (this.props.data.currentPage === null) return null;
 
         if (this.props.data.count === 0) return (
@@ -29,6 +28,7 @@ export default class Articles extends Component {
 
         return (
             <main>
+                <Link to="/article/draft">Create new</Link>
                 {this.props.data.pages > 1 &&
                     <nav className="pager">
                         Pages: {pages}
@@ -37,10 +37,10 @@ export default class Articles extends Component {
                 {this.props.data.list.map(item => {
                     return (
                         <article key={item.id}>
-                            <Link to={"/article/" + item.id}>View</Link>
-                            <h3>{item.title}</h3>
-                            {item.state}
-                            {/*JSON.stringify(item, 0, 2)*/}
+                            <h3>
+                                <Link to={"/article/" + item.id}>{item.title}</Link>
+                            </h3>
+                            {item.state} {item.published_at}
                         </article>
                     );
                 })}

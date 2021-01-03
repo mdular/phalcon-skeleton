@@ -17,6 +17,10 @@
     <?php endif; ?>
 
     <div class="form__element<?= $element->hasMessages() ? ' form__error' : ''?> clearfix">
+        <?php if (!empty($element->getLabel())): ?>
+            <?php echo $element->label(); ?>
+        <?php endif; ?>
+
         <?php echo $element->render(); ?>
 
         <?php if ($element->hasMessages()): ?>
